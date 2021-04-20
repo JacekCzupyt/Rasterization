@@ -20,9 +20,17 @@ namespace Rasterization
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+            InitializeImageContainer();
+        }
+
+        void InitializeImageContainer()
+        {
+            mainImage = new BitmapImage()
+            MainImageContainer.Source
         }
     }
 }
