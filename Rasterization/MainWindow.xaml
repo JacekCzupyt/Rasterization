@@ -16,6 +16,7 @@
             <Button Content="Test" Width="auto" Padding="5px"/>
         </StackPanel>
 
-        <Image Name="MainImageContainer" Grid.Row="1"/>
+        <Rectangle Name="MainImageContainer" Stretch="Fill" Grid.Row="1"
+            Loaded="MainImageContainer_Loaded" MouseLeftButtonDown="MainImageContainer_MouseLeftButtonDown" SizeChanged="MainImageContainer_SizeChanged"/>
     </Grid>
 </Window>
