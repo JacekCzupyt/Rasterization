@@ -21,7 +21,7 @@ namespace Rasterization.DrawingObjects
 
         public override void Draw(byte[] RgbValues, int stride, int width, int height)
         {
-            void swap(out int a, out int b) { int c = a; a = b; b = c; }
+            void swap(ref int a, ref int b) { int c = a; a = b; b = c; }
             void modPutPixel(int _x, int _y, bool mirror)
             {
                 if (!mirror)
@@ -39,13 +39,13 @@ namespace Rasterization.DrawingObjects
             if (Math.Abs(x2-x1) > Math.Abs(y2-y1))
             {
                 mirrored = true;
-                swap(out x1, out y1);
-                swap(out x2, out y2);
+                swap(ref x1, ref y1);
+                swap(ref x2, ref y2);
             }
             if (x2 < x1)
             {
-                swap(out x1, out x2);
-                swap(out y1, out y2);
+                swap(ref x1, ref x2);
+                swap(ref y1, ref y2);
             }
 
             int dx = x2 - x1;
