@@ -13,14 +13,14 @@ namespace Rasterization.DrawingObjects
         Vector2 Position;
         float radius;
 
-        MidpointCircle(Vector2 pos, float rad, Color color)
+        public MidpointCircle(Vector2 pos, float rad, Color color)
         {
             this.color = color;
             this.Position = pos;
             this.radius = rad;
         }
 
-        MidpointCircle(Vector2 pos, Vector2 point2, Color color)
+        public MidpointCircle(Vector2 pos, Vector2 point2, Color color)
         {
             this.color = color;
             this.Position = pos;

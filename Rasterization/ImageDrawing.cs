@@ -14,6 +14,7 @@ namespace Rasterization
     public partial class MainWindow : Window
     {
         MidpointLine mainLine;
+        MidpointCircle mainCircle;
 
         Bitmap DrawBitmap(Bitmap bmp)
         {
@@ -41,8 +42,8 @@ namespace Rasterization
 
 
             // ---------- Temporary -------------
-            if (mainLine != null)
-                mainLine.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height);
+            if (mainCircle != null)
+                mainCircle.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height);
             // ----------------------------------
 
             // Copy the RGB values back to the bitmap
