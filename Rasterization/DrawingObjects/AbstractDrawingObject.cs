@@ -38,10 +38,13 @@ namespace Rasterization.DrawingObjects
 
         protected void PutPixel(int x, int y, byte[] RgbValues, int stride, int width, int height, double modifier = 1)
         {
-            int i = Flatten((x, y), width) * stride / width;
-            RgbValues[i] = (byte)(color.R * modifier);
-            RgbValues[i + 1] = (byte)(color.G * modifier);
-            RgbValues[i + 2] = (byte)(color.B * modifier);
+            if(IsInBounds((x, y), width, height))
+            {
+                int i = Flatten((x, y), width) * stride / width;
+                RgbValues[i] = (byte)(color.R * modifier);
+                RgbValues[i + 1] = (byte)(color.G * modifier);
+                RgbValues[i + 2] = (byte)(color.B * modifier);
+            }
         }
     }
 }

@@ -40,9 +40,32 @@ namespace Rasterization.DrawingObjects
                     _y = -_y;
                 PutPixel(x0 + _x, y0 + _y, RgbValues, stride, width, height);
             }
+            void PutCirclePixel(int _x, int _y, int x0, int y0)
+            {
+                for (int c = 0; c < 8; c++)
+                    modPutPixel(_x, _y, x0, y0, c);
+            }
+
 
             int x1 = (int)Math.Round(Position.X), y1 = (int)Math.Round(Position.Y);
-            
+            int r = (int)Math.Round(radius);
+
+            int d = 1 - r;
+            int x = 0;
+            int y = r;
+            PutCirclePixel(x, y, x1, y1);
+            while (y > x)
+            {
+                if (d < 0)
+                    d += 2 * x + 3;
+                else
+                {
+                    d += 2 * x - 2 * y + 5;
+                    y--;
+                }
+                x++;
+                PutCirclePixel(x, y, x1, y1);
+            }
         }
 
         public override IEnumerable<Vector2> GetAllPoints()
