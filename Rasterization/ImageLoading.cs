@@ -19,6 +19,7 @@ namespace Rasterization
         private void MainImageContainer_Loaded(object sender, RoutedEventArgs e)
         {
             mainBitmap = new Bitmap((int)MainImageContainer.ActualWidth, (int)MainImageContainer.ActualHeight);
+            mainBitmap = DrawBitmap(mainBitmap);
             MainImageContainer.Fill = new ImageBrush(BitmapToImageSource(mainBitmap));
         }
 
@@ -42,6 +43,7 @@ namespace Rasterization
         private void MainImageContainer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             mainBitmap = new Bitmap((int)MainImageContainer.ActualWidth, (int)MainImageContainer.ActualHeight);
+            mainBitmap = DrawBitmap(mainBitmap);
             MainImageContainer.Fill = new ImageBrush(BitmapToImageSource(mainBitmap));
         }
 
