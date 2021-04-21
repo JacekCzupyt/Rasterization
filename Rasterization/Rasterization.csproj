@@ -65,7 +65,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DrawingObjects\DrawingObject.cs" />
+    <Compile Include="DrawingObjects\AbstractDrawingObject.cs" />
+    <Compile Include="DrawingObjects\IDrawingObject.cs" />
+    <Compile Include="DrawingObjects\MidpointLine.cs" />
     <Compile Include="ImageDrawing.cs" />
     <Compile Include="ImageLoading.cs" />
     <Compile Include="MainWindow.xaml.cs">

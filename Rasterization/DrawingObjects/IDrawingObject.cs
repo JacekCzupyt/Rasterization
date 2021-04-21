@@ -14,7 +14,7 @@ namespace Rasterization.DrawingObjects
     interface IDrawingObject
     {
         /// Draws to the locked bitmap
-        byte[] Draw(byte[] RgbValues, int stride, int width, int height);
+        void Draw(byte[] RgbValues, int stride, int width, int height);
 
         /// Returns the point belonging to the object closest to a given position
         Vector2 GetClosestPoint(Vector2 pos);
