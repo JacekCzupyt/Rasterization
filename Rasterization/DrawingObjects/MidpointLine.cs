@@ -21,13 +21,16 @@ namespace Rasterization.DrawingObjects
 
         public override void Draw(byte[] RgbValues, int stride, int width, int height)
         {
-            void swap(ref int a, ref int b) { int c = a; a = b; b = c; }
-            void modPutPixel(int _x, int _y, bool mirror)
+            void swap(ref int a, ref int b) { int tmp = a; a = b; b = tmp; }
+            void modPutPixel(int _x, int _y, int x0, int y0, int c0)
             {
-                if (!mirror)
-                    PutPixel(_x, _y, RgbValues, stride, width, height);
-                else
-                    PutPixel(_y, _x, RgbValues, stride, width, height);
+                if (c0 % 2 >= 1)
+                    swap(ref _x, ref _y);
+                if (c0 % 4 >= 2)
+                    _x = -_x;
+                if (c0 % 8 >= 4)
+                    _y = -_y;
+                PutPixel(x0+_x, y0+_y, RgbValues, stride, width, height);
             }
 
             int x1 = (int)Math.Round(p1.X);
@@ -35,30 +38,34 @@ namespace Rasterization.DrawingObjects
             int y1 = (int)Math.Round(p1.Y);
             int y2 = (int)Math.Round(p2.Y);
 
-            bool mirrored = false;
-            if (Math.Abs(x2-x1) > Math.Abs(y2-y1))
-            {
-                mirrored = true;
-                swap(ref x1, ref y1);
-                swap(ref x2, ref y2);
-            }
-            if (x2 < x1)
-            {
-                swap(ref x1, ref x2);
-                swap(ref y1, ref y2);
-            }
-
             int dx = x2 - x1;
             int dy = y2 - y1;
+
+            int c = 0;
+            if (dy<0)
+            {
+                dy = -dy;
+                c += 4;
+            }
+            if (dx<0)
+            {
+                dx = -dx;
+                c += 2;
+            }
+            if (Math.Abs(x2-x1) < Math.Abs(y2-y1))
+            {
+                c += 1;
+                swap(ref dy, ref dx);
+            }
 
             int d = 2 * dy - dx;
             int dE = 2 * dy;
             int dNE = 2 * (dy - dx);
 
-            int x = x1, y = y1;
+            int x = 0, y = 0;
 
-            modPutPixel(x, y, mirrored);
-            while (x < x2)
+            modPutPixel(x, y, x1, y1, c);
+            while (x < dx)
             {
                 if (d < 0)
                 {
@@ -71,7 +78,7 @@ namespace Rasterization.DrawingObjects
                     x++;
                     y++;
                 }
-                modPutPixel(x, y, mirrored);
+                modPutPixel(x, y, x1, y1, c);
             }
         }
 

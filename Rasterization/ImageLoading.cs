@@ -47,7 +47,7 @@ namespace Rasterization
             MainImageContainer.Fill = new ImageBrush(BitmapToImageSource(mainBitmap));
         }
 
-        private void MainImageContainer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void MainImageContainer_MouseLeftButtonDown(object sender, MouseEventArgs e)
         {
             mainLine = new DrawingObjects.MidpointLine(new System.Numerics.Vector2(200, 200), new System.Numerics.Vector2((int)e.GetPosition(sender as IInputElement).X, (int)e.GetPosition(sender as IInputElement).Y), System.Drawing.Color.Black);
             //mainBitmap.SetPixel((int)e.GetPosition(sender as IInputElement).X, (int)e.GetPosition(sender as IInputElement).Y, System.Drawing.Color.Red);

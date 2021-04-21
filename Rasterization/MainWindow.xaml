@@ -17,6 +17,6 @@
         </StackPanel>
 
         <Rectangle Name="MainImageContainer" Stretch="Fill" Grid.Row="1"
-            Loaded="MainImageContainer_Loaded" MouseLeftButtonDown="MainImageContainer_MouseLeftButtonDown" SizeChanged="MainImageContainer_SizeChanged"/>
+            Loaded="MainImageContainer_Loaded" MouseMove="MainImageContainer_MouseLeftButtonDown" SizeChanged="MainImageContainer_SizeChanged"/>
     </Grid>
 </Window>
