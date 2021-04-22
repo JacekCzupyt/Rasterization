@@ -21,6 +21,7 @@
                    Loaded="MainImageContainer_Loaded" 
                    MouseMove="MainImageContainer_MouseMove"
                    MouseLeftButtonDown="MainImageContainer_MouseLeftButtonDown"
+                   MouseRightButtonDown="MainImageContainer_MouseRightButtonDown"
                    SizeChanged="MainImageContainer_SizeChanged"/>
     </Grid>
 </Window>

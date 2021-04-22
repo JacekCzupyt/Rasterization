@@ -53,5 +53,22 @@ namespace Rasterization
                     
             }
         }
+
+
+        private void MainImageContainer_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            switch (currentState)
+            {
+                case UIState.PreparingToDraw:
+                    currentlyPressedButton.IsChecked = false;
+                    currentlyPressedButton = null;
+                    currentState = UIState.Nothing;
+                    break;
+                case UIState.DrawingNewObject:
+                    CancelDrawingObject();
+                    currentState = UIState.PreparingToDraw;
+                    break;
+            }
+        }
     }
 }
