@@ -17,10 +17,10 @@ namespace Rasterization.DrawingObjects
         void Draw(byte[] RgbValues, int stride, int width, int height);
 
         /// Returns the point belonging to the object closest to a given position
-        Vector2 GetClosestPoint(Vector2 pos);
+        DrawingPoint GetClosestPoint(Vector2 pos);
         
         /// Returns all points belonging to the object
-        IEnumerable<Vector2> GetAllPoints();
+        IEnumerable<DrawingPoint> GetTranslationPoints();
 
         /// Color of the object
         Color color { get; set; }

@@ -8,27 +8,15 @@ using System.Threading.Tasks;
 
 namespace Rasterization.DrawingObjects
 {
-    class FilledCircle : AbstractDrawingObject
+    class FilledCircle : MidpointCircle
     {
-        Vector2 Position;
-        float radius;
+        public FilledCircle(Vector2 pos, float rad, Color color) : base(pos, rad, color) { }
 
-        public FilledCircle(Vector2 pos, float rad, Color color)
-        {
-            this.color = color;
-            this.Position = pos;
-            this.radius = rad;
-        }
-
-        public FilledCircle(Vector2 pos, Vector2 point2, Color color)
-        {
-            this.color = color;
-            this.Position = pos;
-            this.radius = (pos - point2).Length();
-        }
+        public FilledCircle(Vector2 pos, Vector2 point2, Color color) : base(pos, point2, color) {}
 
         public override void Draw(byte[] RgbValues, int stride, int width, int height)
         {
+            updateRadius();
             void swap(ref int a, ref int b) { int tmp = a; a = b; b = tmp; }
             void modPutPixel(int _x, int _y, int x0, int y0, int c0)
             {
@@ -69,16 +57,6 @@ namespace Rasterization.DrawingObjects
                 PutCirclePixel(x, y, x1, y1);
                 
             }
-        }
-
-        public override IEnumerable<Vector2> GetAllPoints()
-        {
-            return new List<Vector2>() { Position };
-        }
-
-        public override Vector2 GetClosestPoint(Vector2 pos)
-        {
-            return (pos - Position).Length() < radius / 2 ? Position : Position + (pos - Position) * radius / (pos - Position).Length();
         }
     }
 }

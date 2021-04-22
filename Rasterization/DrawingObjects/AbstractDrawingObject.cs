@@ -13,8 +13,8 @@ namespace Rasterization.DrawingObjects
     {
         public Color color { get; set; }
         public abstract void Draw(byte[] RgbValues, int stride, int width, int height);
-        public abstract IEnumerable<Vector2> GetAllPoints();
-        public abstract Vector2 GetClosestPoint(Vector2 pos);
+        public abstract IEnumerable<DrawingPoint> GetTranslationPoints();
+        public abstract DrawingPoint GetClosestPoint(Vector2 pos);
 
         protected int Flatten((int, int) coords, int Width)
         {

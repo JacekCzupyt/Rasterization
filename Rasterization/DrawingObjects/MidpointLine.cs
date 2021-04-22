@@ -10,7 +10,7 @@ namespace Rasterization.DrawingObjects
 {
     class MidpointLine : AbstractDrawingObject
     {
-        Vector2 p1, p2;
+        DrawingPoint p1, p2;
 
         public MidpointLine(Vector2 p1, Vector2 p2, Color color)
         {
@@ -82,14 +82,14 @@ namespace Rasterization.DrawingObjects
             }
         }
 
-        public override IEnumerable<Vector2> GetAllPoints()
+        public override IEnumerable<DrawingPoint> GetTranslationPoints()
         {
-            return new List<Vector2>() { p1, p2 };
+            return new List<DrawingPoint>() { p1, p2 };
         }
 
-        public override Vector2 GetClosestPoint(Vector2 pos)
+        public override DrawingPoint GetClosestPoint(Vector2 pos)
         {
-            return (p1 - pos).Length() < (p2 - pos).Length() ? p1 : p2;
+            return p1.dist(pos) < p2.dist(pos) ? p1 : p2;
         }
     }
 }
