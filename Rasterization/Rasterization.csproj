@@ -73,6 +73,7 @@
     <Compile Include="DrawingObjects\MidpointCircle.cs" />
     <Compile Include="DrawingObjects\MidpointLine.cs" />
     <Compile Include="DrawingUI.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="ImageDrawing.cs" />
     <Compile Include="ImageLoading.cs" />
     <Compile Include="MainWindow.xaml.cs">

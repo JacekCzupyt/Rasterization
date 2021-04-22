@@ -46,14 +46,5 @@ namespace Rasterization
             mainBitmap = DrawBitmap(mainBitmap);
             MainImageContainer.Fill = new ImageBrush(BitmapToImageSource(mainBitmap));
         }
-
-        private void MainImageContainer_MouseLeftButtonDown(object sender, MouseEventArgs e)
-        {
-            mainCircle = new DrawingObjects.MidpointCircle(new System.Numerics.Vector2(200, 200), new System.Numerics.Vector2((int)e.GetPosition(sender as IInputElement).X, (int)e.GetPosition(sender as IInputElement).Y), System.Drawing.Color.Black);
-            //mainBitmap.SetPixel((int)e.GetPosition(sender as IInputElement).X, (int)e.GetPosition(sender as IInputElement).Y, System.Drawing.Color.Red);
-            mainBitmap = DrawBitmap(mainBitmap);
-            
-            MainImageContainer.Fill = new ImageBrush(BitmapToImageSource(mainBitmap));
-        }
     }
 }

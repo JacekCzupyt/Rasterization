@@ -16,12 +16,22 @@ namespace Rasterization
         private void DrawingButtonClick(object sender, RoutedEventArgs e)
         {
             if (currentlyPressedButton != null)
+            {
                 currentlyPressedButton.IsChecked = false;
+            }
+                
                 
             if (sender as ToggleButton == currentlyPressedButton)
+            {
                 currentlyPressedButton = null;
+                currentState = UIState.Nothing;
+            }
             else
-                currentlyPressedButton = sender as ToggleButton; 
+            {
+                currentlyPressedButton = sender as ToggleButton;
+                currentState = UIState.PreparingToDraw;
+            }
+                
         }
     }
 }

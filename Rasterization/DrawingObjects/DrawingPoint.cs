@@ -20,12 +20,4 @@ namespace Rasterization.DrawingObjects
 
         public float dist(Vector2 pos) { return (pos - Point).Length(); }
     }
-
-    public static class PointExt
-    {
-        public static Vector2 ToVector2(this System.Windows.Point point)
-        {
-            return new Vector2((float)point.X, (float)point.Y);
-        }
-    }
 }
