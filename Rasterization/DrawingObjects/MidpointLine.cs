@@ -10,12 +10,12 @@ namespace Rasterization.DrawingObjects
 {
     class MidpointLine : AbstractDrawingObject
     {
-        DrawingPoint p1, p2;
+        public DrawingPoint Point1, Point2;
 
         public MidpointLine(Vector2 p1, Vector2 p2, Color color)
         {
-            this.p1 = p1;
-            this.p2 = p2;
+            this.Point1 = p1;
+            this.Point2 = p2;
             this.color = color;
         }
 
@@ -33,10 +33,10 @@ namespace Rasterization.DrawingObjects
                 PutPixel(x0+_x, y0+_y, RgbValues, stride, width, height);
             }
 
-            int x1 = (int)Math.Round(p1.X);
-            int x2 = (int)Math.Round(p2.X);
-            int y1 = (int)Math.Round(p1.Y);
-            int y2 = (int)Math.Round(p2.Y);
+            int x1 = (int)Math.Round(Point1.X);
+            int x2 = (int)Math.Round(Point2.X);
+            int y1 = (int)Math.Round(Point1.Y);
+            int y2 = (int)Math.Round(Point2.Y);
 
             int dx = x2 - x1;
             int dy = y2 - y1;
@@ -84,12 +84,12 @@ namespace Rasterization.DrawingObjects
 
         public override IEnumerable<DrawingPoint> GetTranslationPoints()
         {
-            return new List<DrawingPoint>() { p1, p2 };
+            return new List<DrawingPoint>() { Point1, Point2 };
         }
 
         public override DrawingPoint GetClosestPoint(Vector2 pos)
         {
-            return p1.dist(pos) < p2.dist(pos) ? p1 : p2;
+            return Point1.dist(pos) < Point2.dist(pos) ? Point1 : Point2;
         }
     }
 }

@@ -10,8 +10,9 @@ namespace Rasterization.DrawingObjects
 {
     class MidpointCircle : AbstractDrawingObject
     {
-        protected DrawingPoint Position;
-        protected float radius;
+        public DrawingPoint Position;
+        private float rad;
+        public float Radius { get { updateRadius(); return rad; } set { rad = value; radiusUtilityPoint.Point = Position.Point + new Vector2(rad, 0); } }
 
         private DrawingPoint radiusUtilityPoint;
 
@@ -19,8 +20,7 @@ namespace Rasterization.DrawingObjects
         {
             this.color = color;
             this.Position = pos;
-            this.radius = rad;
-            radiusUtilityPoint = Position.Point + new Vector2(rad, 0);
+            this.Radius = rad;
         }
 
         public MidpointCircle(Vector2 pos, Vector2 point2, Color color)
@@ -28,12 +28,11 @@ namespace Rasterization.DrawingObjects
             this.color = color;
             this.Position = pos;
             this.radiusUtilityPoint = point2;
-            updateRadius();
         }
 
         protected void updateRadius()
         {
-             radius = Position.dist(radiusUtilityPoint.Point);
+             rad = Position.dist(radiusUtilityPoint.Point);
         }
 
         public override void Draw(byte[] RgbValues, int stride, int width, int height)
@@ -58,7 +57,7 @@ namespace Rasterization.DrawingObjects
 
 
             int x1 = (int)Math.Round(Position.X), y1 = (int)Math.Round(Position.Y);
-            int r = (int)Math.Round(radius);
+            int r = (int)Math.Round(Radius);
 
             int d = 1 - r;
             int x = 0;
@@ -86,13 +85,13 @@ namespace Rasterization.DrawingObjects
         public override DrawingPoint GetClosestPoint(Vector2 pos)
         {
             updateRadius();
-            if(Position.dist(pos) < radius / 2)
+            if(Position.dist(pos) < Radius / 2)
             {
                 return Position;
             }
             else
             {
-                radiusUtilityPoint.Point = Position.Point + (pos - Position.Point) * radius / (pos - Position.Point).Length();
+                radiusUtilityPoint.Point = Position.Point + (pos - Position.Point) * Radius / (pos - Position.Point).Length();
                 return radiusUtilityPoint;
             }
         }

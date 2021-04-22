@@ -37,7 +37,7 @@ namespace Rasterization.DrawingObjects
 
 
             int x1 = (int)Math.Round(Position.X), y1 = (int)Math.Round(Position.Y);
-            int r = (int)(2*Math.Round((radius+1)/2))-1;
+            int r = (int)(2*Math.Round((Radius+1)/2))-1;
 
             int d = 1 - r;
             int x = 0;
