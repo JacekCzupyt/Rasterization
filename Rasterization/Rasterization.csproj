@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,6 +65,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DrawingMouseControls.cs" />
+    <Compile Include="DrawingObjects\AbstractDrawingObject.cs" />
+    <Compile Include="DrawingObjects\DrawingPoint.cs" />
+    <Compile Include="DrawingObjects\FilledCircle.cs" />
+    <Compile Include="DrawingObjects\IDrawingObject.cs" />
+    <Compile Include="DrawingObjects\MidpointCircle.cs" />
+    <Compile Include="DrawingObjects\MidpointLine.cs" />
+    <Compile Include="DrawingUI.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="ImageDrawing.cs" />
+    <Compile Include="ImageLoading.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -94,5 +107,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
