@@ -15,6 +15,7 @@ namespace Rasterization
     {
         MidpointLine mainLine;
         MidpointCircle mainCircle;
+        FilledCircle test = new FilledCircle(new Vector2(200, 200), 200, Color.Black);
 
         Bitmap DrawBitmap(Bitmap bmp)
         {
@@ -44,6 +45,7 @@ namespace Rasterization
             // ---------- Temporary -------------
             if (mainCircle != null)
                 mainCircle.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height);
+            test.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height);
             // ----------------------------------
 
             // Copy the RGB values back to the bitmap

@@ -66,6 +66,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DrawingObjects\AbstractDrawingObject.cs" />
+    <Compile Include="DrawingObjects\DrawingPoint.cs" />
+    <Compile Include="DrawingObjects\FilledCircle.cs" />
     <Compile Include="DrawingObjects\IDrawingObject.cs" />
     <Compile Include="DrawingObjects\MidpointCircle.cs" />
     <Compile Include="DrawingObjects\MidpointLine.cs" />
