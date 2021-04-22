@@ -19,6 +19,8 @@ namespace Rasterization
         IDrawingObject currentlyDrawnObject;
         DrawingPoint currentlyDrawnPoint;
 
+        List<DrawingPoint> selectedPoints = new List<DrawingPoint>();
+
         private void BeginDrawingObject(MouseButtonEventArgs e)
         {
             switch (currentlyPressedButton.Name)

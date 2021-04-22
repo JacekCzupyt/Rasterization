@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Rasterization.DrawingObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,7 +40,8 @@ namespace Rasterization
             switch (currentState)
             {
                 case UIState.Nothing:
-                    throw new NotImplementedException();
+                    HandlePointSelection(e);
+                    break;
                 case UIState.PreparingToDraw:
                     currentState = UIState.DrawingNewObject;
                     BeginDrawingObject(e);
@@ -69,6 +72,17 @@ namespace Rasterization
                     currentState = UIState.PreparingToDraw;
                     break;
             }
+        }
+
+        private void HandlePointSelection(MouseButtonEventArgs e)
+        {
+            const float MaximumSelectDistance = 10;
+
+            Vector2 pos = e.GetPosition(MainImageContainer).ToVector2();
+
+            IEnumerable<DrawingPoint> ClosestPoints = DrawingObjects.Select(obj => obj.GetClosestPoint(pos));
+
+            DrawingPoint ClosestPoint = ClosestPoints.Aggregate((min, x) => min.dist(pos) < x.dist(pos) ? min : x);
         }
     }
 }
