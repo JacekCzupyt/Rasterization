@@ -65,12 +65,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DrawingMouseControls.cs" />
     <Compile Include="DrawingObjects\AbstractDrawingObject.cs" />
     <Compile Include="DrawingObjects\DrawingPoint.cs" />
     <Compile Include="DrawingObjects\FilledCircle.cs" />
     <Compile Include="DrawingObjects\IDrawingObject.cs" />
     <Compile Include="DrawingObjects\MidpointCircle.cs" />
     <Compile Include="DrawingObjects\MidpointLine.cs" />
+    <Compile Include="DrawingUI.cs" />
     <Compile Include="ImageDrawing.cs" />
     <Compile Include="ImageLoading.cs" />
     <Compile Include="MainWindow.xaml.cs">

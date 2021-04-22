@@ -13,7 +13,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <Button Content="Test" Width="auto" Padding="5px"/>
+            <ToggleButton Name="DrawLineButon" Content="Line" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
+            <ToggleButton Name="DrawCircleButton" Content="Circle" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
         </StackPanel>
 
         <Rectangle Name="MainImageContainer" Stretch="Fill" Grid.Row="1"

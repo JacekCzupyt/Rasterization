@@ -24,7 +24,7 @@ namespace Rasterization
         public MainWindow()
         {
             InitializeComponent();
-            //InitializeImage();
         }
+
     }
 }
