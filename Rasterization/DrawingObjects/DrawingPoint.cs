@@ -11,7 +11,7 @@ namespace Rasterization.DrawingObjects
     class DrawingPoint
     {
         public DrawingPoint(Vector2 p) { Point = p; }
-        public static implicit operator DrawingPoint(Vector2 p) { return new DrawingPoint(p); }
+        public static explicit operator DrawingPoint(Vector2 p) { return new DrawingPoint(p); }
 
         public Vector2 Point;
 

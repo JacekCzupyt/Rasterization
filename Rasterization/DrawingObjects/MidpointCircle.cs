@@ -19,15 +19,24 @@ namespace Rasterization.DrawingObjects
         public MidpointCircle(Vector2 pos, float rad, Color color)
         {
             this.color = color;
+            this.Position = new DrawingPoint(pos);
+            radiusUtilityPoint = new DrawingPoint(new Vector2());
+            this.Radius = rad;
+        }
+
+        public MidpointCircle(DrawingPoint pos, float rad, Color color)
+        {
+            this.color = color;
             this.Position = pos;
+            radiusUtilityPoint = new DrawingPoint(new Vector2());
             this.Radius = rad;
         }
 
         public MidpointCircle(Vector2 pos, Vector2 point2, Color color)
         {
             this.color = color;
-            this.Position = pos;
-            this.radiusUtilityPoint = point2;
+            this.Position = new DrawingPoint(pos);
+            this.radiusUtilityPoint = new DrawingPoint(point2);
         }
 
         protected void updateRadius()

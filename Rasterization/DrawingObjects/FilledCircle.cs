@@ -12,6 +12,8 @@ namespace Rasterization.DrawingObjects
     {
         public FilledCircle(Vector2 pos, float rad, Color color) : base(pos, rad, color) { }
 
+        public FilledCircle(DrawingPoint pos, float rad, Color color) : base(pos, rad, color) { }
+
         public FilledCircle(Vector2 pos, Vector2 point2, Color color) : base(pos, point2, color) {}
 
         public override void Draw(byte[] RgbValues, int stride, int width, int height)

@@ -41,6 +41,7 @@ namespace Rasterization
             {
                 case UIState.Nothing:
                     HandlePointSelection(e);
+                    UpdateMainImage();
                     break;
                 case UIState.PreparingToDraw:
                     currentState = UIState.DrawingNewObject;
@@ -77,12 +78,27 @@ namespace Rasterization
         private void HandlePointSelection(MouseButtonEventArgs e)
         {
             const float MaximumSelectDistance = 10;
+            const float PointRadius = 3;
 
             Vector2 pos = e.GetPosition(MainImageContainer).ToVector2();
 
             IEnumerable<DrawingPoint> ClosestPoints = DrawingObjects.Select(obj => obj.GetClosestPoint(pos));
 
             DrawingPoint ClosestPoint = ClosestPoints.Aggregate((min, x) => min.dist(pos) < x.dist(pos) ? min : x);
+
+            if (ClosestPoint.dist(pos) <= MaximumSelectDistance)
+            {
+                if (selectedPoints.ContainsKey(ClosestPoint))
+                {
+                    selectedPoints.Remove(ClosestPoint);
+                }
+                else
+                {
+                    selectedPoints.Add(ClosestPoint, new FilledCircle(ClosestPoint, PointRadius, System.Drawing.Color.Blue));
+                }
+            }
+
+
         }
     }
 }

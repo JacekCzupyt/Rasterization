@@ -19,7 +19,7 @@ namespace Rasterization
         IDrawingObject currentlyDrawnObject;
         DrawingPoint currentlyDrawnPoint;
 
-        List<DrawingPoint> selectedPoints = new List<DrawingPoint>();
+        Dictionary<DrawingPoint, FilledCircle> selectedPoints = new Dictionary<DrawingPoint, FilledCircle>();
 
         private void BeginDrawingObject(MouseButtonEventArgs e)
         {
@@ -101,6 +101,11 @@ namespace Rasterization
             foreach(IDrawingObject drawingObject in DrawingObjects)
             {
                 drawingObject.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height);
+            }
+
+            foreach(FilledCircle uiCircle in selectedPoints.Values)
+            {
+                uiCircle.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height);
             }
 
             // Copy the RGB values back to the bitmap

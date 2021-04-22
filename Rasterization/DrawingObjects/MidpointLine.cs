@@ -14,6 +14,13 @@ namespace Rasterization.DrawingObjects
 
         public MidpointLine(Vector2 p1, Vector2 p2, Color color)
         {
+            this.Point1 = new DrawingPoint(p1);
+            this.Point2 = new DrawingPoint(p2);
+            this.color = color;
+        }
+
+        public MidpointLine(DrawingPoint p1, DrawingPoint p2, Color color)
+        {
             this.Point1 = p1;
             this.Point2 = p2;
             this.color = color;
