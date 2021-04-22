@@ -14,7 +14,7 @@ namespace Rasterization.DrawingObjects
         private float rad;
         public float Radius { get { updateRadius(); return rad; } set { rad = value; radiusUtilityPoint.Point = Position.Point + new Vector2(rad, 0); } }
 
-        private DrawingPoint radiusUtilityPoint;
+        public DrawingPoint radiusUtilityPoint;
 
         public MidpointCircle(Vector2 pos, float rad, Color color)
         {
