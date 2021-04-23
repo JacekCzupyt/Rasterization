@@ -127,7 +127,7 @@ namespace Rasterization.DrawingObjects
 
 
             int x1 = (int)Math.Round(Position.X), y1 = (int)Math.Round(Position.Y);
-            int r = (int)Math.Round(Radius);
+            float r = Radius;
 
             float y = r;
             for(int x = 0;x<y;x++)
