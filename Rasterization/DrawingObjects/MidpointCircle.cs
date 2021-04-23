@@ -44,8 +44,11 @@ namespace Rasterization.DrawingObjects
              rad = Position.dist(radiusUtilityPoint.Point);
         }
 
-        public override void Draw(byte[] RgbValues, int stride, int width, int height)
+        public override void Draw(byte[] RgbValues, int stride, int width, int height, bool Antialiesing)
         {
+            if (Antialiesing)
+                throw new NotImplementedException();
+
             updateRadius();
             void swap(ref int a, ref int b) { int tmp = a; a = b; b = tmp; }
             void modPutPixel(int _x, int _y, int x0, int y0, int c0)

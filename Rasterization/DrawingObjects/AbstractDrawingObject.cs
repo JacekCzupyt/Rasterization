@@ -12,7 +12,7 @@ namespace Rasterization.DrawingObjects
     abstract class AbstractDrawingObject : IDrawingObject
     {
         public Color color { get; set; }
-        public abstract void Draw(byte[] RgbValues, int stride, int width, int height);
+        public abstract void Draw(byte[] RgbValues, int stride, int width, int height, bool Antialiesing);
         public abstract IEnumerable<DrawingPoint> GetTranslationPoints();
         public abstract DrawingPoint GetClosestPoint(Vector2 pos);
 
@@ -41,9 +41,9 @@ namespace Rasterization.DrawingObjects
             if(IsInBounds((x, y), width, height))
             {
                 int i = Flatten((x, y), width) * stride / width;
-                RgbValues[i] = (byte)(color.R * modifier);
-                RgbValues[i + 1] = (byte)(color.G * modifier);
-                RgbValues[i + 2] = (byte)(color.B * modifier);
+                RgbValues[i] = (byte)(color.R * modifier + RgbValues[i] * (1-modifier));
+                RgbValues[i + 1] = (byte)(color.G * modifier + RgbValues[i+1] * (1 - modifier));
+                RgbValues[i + 2] = (byte)(color.B * modifier + RgbValues[i+2] * (1 - modifier));
             }
         }
     }

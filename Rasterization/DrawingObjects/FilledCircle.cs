@@ -16,8 +16,11 @@ namespace Rasterization.DrawingObjects
 
         public FilledCircle(Vector2 pos, Vector2 point2, Color color) : base(pos, point2, color) {}
 
-        public override void Draw(byte[] RgbValues, int stride, int width, int height)
+        public override void Draw(byte[] RgbValues, int stride, int width, int height, bool Antialiesing)
         {
+            if (Antialiesing)
+                throw new NotImplementedException();
+
             updateRadius();
             void swap(ref int a, ref int b) { int tmp = a; a = b; b = tmp; }
             void modPutPixel(int _x, int _y, int x0, int y0, int c0)
