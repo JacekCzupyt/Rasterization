@@ -35,7 +35,7 @@ namespace Rasterization.DrawingObjects
                 DrawAntialiesed(RgbValues, bmpData);
         }
 
-        private void DrawSimple(byte[] RgbValues, BitmapData bmpData)
+        protected void DrawSimple(byte[] RgbValues, BitmapData bmpData)
         {
             int x1 = (int)Math.Round(Point1.X);
             int x2 = (int)Math.Round(Point2.X);

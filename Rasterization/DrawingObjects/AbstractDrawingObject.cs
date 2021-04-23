@@ -39,7 +39,7 @@ namespace Rasterization.DrawingObjects
 
         protected void swap(ref int a, ref int b) { int tmp = a; a = b; b = tmp; }
 
-        protected void PutPixel(int x, int y, byte[] RgbValues, BitmapData bmpData, double modifier = 1)
+        protected virtual void PutPixel(int x, int y, byte[] RgbValues, BitmapData bmpData, double modifier = 1)
         {
             if(IsInBounds((x, y), bmpData.Width, bmpData.Height))
             {
