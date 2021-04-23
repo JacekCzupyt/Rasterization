@@ -10,7 +10,7 @@ namespace Rasterization.DrawingObjects
 {
     class Polygon : AbstractDrawingObject
     {
-        List<DrawingPoint> Points = new List<DrawingPoint>();
+        public List<DrawingPoint> Points = new List<DrawingPoint>();
         List<MidpointLine> Edges = new List<MidpointLine>();
 
         public Polygon(Color color, Vector2 p0, params Vector2[] list)
@@ -40,16 +40,26 @@ namespace Rasterization.DrawingObjects
             }
         }
 
-        public void Addpoint(Vector2 v)
+        public DrawingPoint AddPoint(Vector2 v)
         {
-            Addpoint(new DrawingPoint(v));
+            return AddPoint(new DrawingPoint(v));
         }
 
-        public void Addpoint(DrawingPoint p)
+        public DrawingPoint AddPoint(DrawingPoint p)
         {
             Points.Add(p);
             Edges.Last().Point2 = p;
             Edges.Add(new MidpointLine(p, Points[0], color));
+            return p;
+        }
+
+        public void RemoveLastPoint()
+        {
+            if (Points.Count <= 2)
+                throw new InvalidOperationException("Can't remove points from polygon if there's only 2 left");
+            Points.RemoveAt(Points.Count - 1);
+            Edges.RemoveAt(Edges.Count - 1);
+            Edges.Last().Point2 = Points[0];
         }
 
         public override void Draw(byte[] RgbValues, int stride, int width, int height, bool Antialiesing)
