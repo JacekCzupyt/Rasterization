@@ -11,7 +11,7 @@ namespace Rasterization.DrawingObjects
     /// Mostly implements some helper functions that most drawing algorithms will use
     abstract class AbstractDrawingObject : IDrawingObject
     {
-        public Color color { get; set; }
+        public virtual Color color { get; set; }
         public abstract void Draw(byte[] RgbValues, int stride, int width, int height, bool Antialiesing);
         public abstract IEnumerable<DrawingPoint> GetTranslationPoints();
         public abstract DrawingPoint GetClosestPoint(Vector2 pos);
