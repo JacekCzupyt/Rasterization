@@ -142,7 +142,7 @@ namespace Rasterization
 
             foreach(FilledCircle uiCircle in selectedPoints.Values)
             {
-                uiCircle.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height, false);
+                uiCircle.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height, true);
             }
 
             // Copy the RGB values back to the bitmap

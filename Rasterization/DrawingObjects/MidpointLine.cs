@@ -34,7 +34,7 @@ namespace Rasterization.DrawingObjects
                 DrawAntialiesed(RgbValues, stride, width, height);
         }
 
-        public void DrawSimple(byte[] RgbValues, int stride, int width, int height)
+        private void DrawSimple(byte[] RgbValues, int stride, int width, int height)
         {
             void swap(ref int a, ref int b) { int tmp = a; a = b; b = tmp; }
             void modPutPixel(int _x, int _y, int x0, int y0, int c0)
@@ -97,7 +97,7 @@ namespace Rasterization.DrawingObjects
             }
         }
 
-        public void DrawAntialiesed(byte[] RgbValues, int stride, int width, int height)
+        private void DrawAntialiesed(byte[] RgbValues, int stride, int width, int height)
         {
             void swap(ref int a, ref int b) { int tmp = a; a = b; b = tmp; }
             void modPutPixel(int _x, int _y, int x0, int y0, int c0, float mod = 1)
