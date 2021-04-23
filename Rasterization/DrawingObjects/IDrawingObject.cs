@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Rasterization.DrawingObjects
     interface IDrawingObject
     {
         /// Draws to the locked bitmap
-        void Draw(byte[] RgbValues, int stride, int width, int height, bool Antialiesing = false);
+        void Draw(byte[] RgbValues, BitmapData bmpData, bool Antialiesing = false);
 
         /// Returns the point belonging to the object closest to a given position
         DrawingPoint GetClosestPoint(Vector2 pos);

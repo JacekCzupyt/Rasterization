@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -62,10 +63,10 @@ namespace Rasterization.DrawingObjects
             Edges.Last().Point2 = Points[0];
         }
 
-        public override void Draw(byte[] RgbValues, int stride, int width, int height, bool Antialiesing)
+        public override void Draw(byte[] RgbValues, BitmapData bmpData, bool Antialiesing)
         {
             foreach (var e in Edges)
-                e.Draw(RgbValues, stride, width, height, Antialiesing);
+                e.Draw(RgbValues, bmpData, Antialiesing);
         }
 
         public override DrawingPoint GetClosestPoint(Vector2 pos)
