@@ -19,7 +19,7 @@ namespace Rasterization.DrawingObjects
     class ThickLine : MidpointLine
     {
         private FilledCircle Brush;
-        public float Thickness { get { return Brush.Radius; } set { Brush.Radius = value; } }
+        public float Thickness { get { return Brush.Radius; } set { Brush.Radius = value < 0 ? 0 : value; } }
 
         public ThickLine(Vector2 p1, Vector2 p2, float thick, Color color) : base(p1, p2, color)
         {

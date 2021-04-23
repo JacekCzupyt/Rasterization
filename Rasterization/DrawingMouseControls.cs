@@ -183,5 +183,15 @@ namespace Rasterization
             PreviousMousePosition = e.GetPosition(MainImageContainer).ToVector2();
             currentState = selectedPoints.Count > 0 ? UIState.MovingExistingPoints : UIState.Nothing;
         }
+
+        private void MainImageContainer_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if(currentState == UIState.DrawingNewObject && currentlyDrawnObject is ThickLine)
+            {
+                ThickLine tl = currentlyDrawnObject as ThickLine;
+                tl.Thickness += e.Delta / 120;
+                UpdateMainImage();
+            }
+        }
     }
 }

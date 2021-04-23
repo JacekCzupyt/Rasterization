@@ -38,6 +38,7 @@
                    MouseLeftButtonDown="MainImageContainer_MouseLeftButtonDown"
                    MouseLeftButtonUp="MainImageContainer_MouseLeftButtonUp"
                    MouseRightButtonDown="MainImageContainer_MouseRightButtonDown"
+                   MouseWheel="MainImageContainer_MouseWheel"
                    SizeChanged="MainImageContainer_SizeChanged"/>
         </Grid>
     </DockPanel>
