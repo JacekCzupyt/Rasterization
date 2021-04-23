@@ -26,7 +26,8 @@ namespace Rasterization
             switch (currentlyPressedButton.Name)
             {
                 case "DrawLineButon":
-                    MidpointLine line = new MidpointLine(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), Color.Black);
+                    //MidpointLine line = new MidpointLine(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), Color.Black);
+                    ThickLine line = new ThickLine(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), 5, Color.Black);
                     currentlyDrawnObject = line;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = line.Point2;
@@ -36,6 +37,12 @@ namespace Rasterization
                     currentlyDrawnObject = circle;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = circle.radiusUtilityPoint;
+                    break;
+                case "DrawPolygonButton":
+                    Polygon poly = new Polygon(Color.Black, e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2());
+                    currentlyDrawnObject = poly;
+                    DrawingObjects.Add(currentlyDrawnObject);
+                    currentlyDrawnPoint = poly.Points[1];
                     break;
                 default:
                     throw new NotImplementedException();
@@ -52,6 +59,24 @@ namespace Rasterization
                     currentlyDrawnPoint.Point = e.GetPosition(MainImageContainer).ToVector2();
                     currentlyDrawnPoint = null;
                     currentState = UIState.PreparingToDraw;
+                    UpdateMainImage();
+                    break;
+                case "DrawPolygonButton":
+                    Polygon poly = currentlyDrawnObject as Polygon;
+                    Vector2 mousePos = e.GetPosition(MainImageContainer).ToVector2();
+                    if (poly.Points.Count > 2 && poly.Points[0].dist(mousePos) < MaximumSelectDistance)
+                    {
+                        currentlyDrawnObject = null;
+                        currentlyDrawnPoint.Point = mousePos;
+                        currentlyDrawnPoint = null;
+                        currentState = UIState.PreparingToDraw;
+                    }
+                    else
+                    {
+                        currentlyDrawnPoint.Point = mousePos;
+                        currentlyDrawnPoint = poly.AddPoint(mousePos);
+                    }
+                    UpdateMainImage();
                     break;
                 default:
                     throw new NotImplementedException();
@@ -62,9 +87,19 @@ namespace Rasterization
         {
             if(currentlyDrawnObject != null)
             {
-                DrawingObjects.Remove(currentlyDrawnObject);
-                currentlyDrawnObject = null;
-                currentlyDrawnPoint = null;
+                if (currentlyDrawnObject is Polygon && (currentlyDrawnObject as Polygon).Points.Count > 2)
+                {
+                    currentlyDrawnPoint = null;
+                    (currentlyDrawnObject as Polygon).RemoveLastPoint();
+                    currentlyDrawnObject = null;
+                }
+                else
+                {
+                    DrawingObjects.Remove(currentlyDrawnObject);
+                    currentlyDrawnObject = null;
+                    currentlyDrawnPoint = null;
+                }
+                
                 UpdateMainImage();
             }
         }
@@ -103,12 +138,12 @@ namespace Rasterization
 
             foreach(IDrawingObject drawingObject in DrawingObjects)
             {
-                drawingObject.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height, true);
+                drawingObject.Draw(RgbValues, bmpData, Antialiesing);
             }
 
             foreach(FilledCircle uiCircle in selectedPoints.Values)
             {
-                uiCircle.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height, false);
+                uiCircle.Draw(RgbValues, bmpData, true);
             }
 
             // Copy the RGB values back to the bitmap

@@ -37,5 +37,19 @@ namespace Rasterization
             }
                 
         }
+
+        bool Antialiesing = false;
+
+        private void MenuItem_Checked(object sender, RoutedEventArgs e)
+        {
+            Antialiesing = true;
+            UpdateMainImage();
+        }
+
+        private void MenuItem_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Antialiesing = false;
+            UpdateMainImage();
+        }
     }
 }

@@ -103,9 +103,11 @@ namespace Rasterization
             }
         }
 
+        const float MaximumSelectDistance = 10;
+
         private void HandlePointSelection(MouseButtonEventArgs e)
         {
-            const float MaximumSelectDistance = 10;
+            
             const float PointRadius = 3;
 
             Vector2 pos = e.GetPosition(MainImageContainer).ToVector2();

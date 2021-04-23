@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -26,28 +27,16 @@ namespace Rasterization.DrawingObjects
             this.color = color;
         }
 
-        public override void Draw(byte[] RgbValues, int stride, int width, int height, bool Antialiesing)
+        public override void Draw(byte[] RgbValues, BitmapData bmpData, bool Antialiesing)
         {
             if (!Antialiesing)
-                DrawSimple(RgbValues, stride, width, height);
+                DrawSimple(RgbValues, bmpData);
             else
-                DrawAntialiesed(RgbValues, stride, width, height);
+                DrawAntialiesed(RgbValues, bmpData);
         }
 
-        public void DrawSimple(byte[] RgbValues, int stride, int width, int height)
+        protected void DrawSimple(byte[] RgbValues, BitmapData bmpData)
         {
-            void swap(ref int a, ref int b) { int tmp = a; a = b; b = tmp; }
-            void modPutPixel(int _x, int _y, int x0, int y0, int c0)
-            {
-                if (c0 % 2 >= 1)
-                    swap(ref _x, ref _y);
-                if (c0 % 4 >= 2)
-                    _x = -_x;
-                if (c0 % 8 >= 4)
-                    _y = -_y;
-                PutPixel(x0+_x, y0+_y, RgbValues, stride, width, height);
-            }
-
             int x1 = (int)Math.Round(Point1.X);
             int x2 = (int)Math.Round(Point2.X);
             int y1 = (int)Math.Round(Point1.Y);
@@ -79,7 +68,7 @@ namespace Rasterization.DrawingObjects
 
             int x = 0, y = 0;
 
-            modPutPixel(x, y, x1, y1, c);
+            modPutPixel(x, y, x1, y1, c, RgbValues, bmpData);
             while (x < dx)
             {
                 if (d < 0)
@@ -93,23 +82,12 @@ namespace Rasterization.DrawingObjects
                     x++;
                     y++;
                 }
-                modPutPixel(x, y, x1, y1, c);
+                modPutPixel(x, y, x1, y1, c, RgbValues, bmpData);
             }
         }
 
-        public void DrawAntialiesed(byte[] RgbValues, int stride, int width, int height)
+        private void DrawAntialiesed(byte[] RgbValues, BitmapData bmpData)
         {
-            void swap(ref int a, ref int b) { int tmp = a; a = b; b = tmp; }
-            void modPutPixel(int _x, int _y, int x0, int y0, int c0, float mod = 1)
-            {
-                if (c0 % 2 >= 1)
-                    swap(ref _x, ref _y);
-                if (c0 % 4 >= 2)
-                    _x = -_x;
-                if (c0 % 8 >= 4)
-                    _y = -_y;
-                PutPixel(x0 + _x, y0 + _y, RgbValues, stride, width, height, mod);
-            }
 
             int x1 = (int)Math.Round(Point1.X);
             int x2 = (int)Math.Round(Point2.X);
@@ -142,8 +120,8 @@ namespace Rasterization.DrawingObjects
 
             for (int x = 0; x < dx; x++)
             {
-                modPutPixel(x, (int)y, x1, y1, c, 1-y%1);
-                modPutPixel(x, (int)y+1, x1, y1, c, y % 1);
+                modPutPixel(x, (int)y, x1, y1, c, RgbValues, bmpData, 1-y%1);
+                modPutPixel(x, (int)y+1, x1, y1, c, RgbValues, bmpData, y % 1);
                 y += m;
             }
         }
