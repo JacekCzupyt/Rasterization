@@ -19,6 +19,8 @@ namespace Rasterization
         IDrawingObject currentlyDrawnObject;
         DrawingPoint currentlyDrawnPoint;
 
+        Dictionary<DrawingPoint, FilledCircle> selectedPoints = new Dictionary<DrawingPoint, FilledCircle>();
+
         private void BeginDrawingObject(MouseButtonEventArgs e)
         {
             switch (currentlyPressedButton.Name)
@@ -29,6 +31,12 @@ namespace Rasterization
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = line.Point2;
                     break;
+                case "DrawCircleButton":
+                    MidpointCircle circle = new MidpointCircle(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), Color.Black);
+                    currentlyDrawnObject = circle;
+                    DrawingObjects.Add(currentlyDrawnObject);
+                    currentlyDrawnPoint = circle.radiusUtilityPoint;
+                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -38,6 +46,7 @@ namespace Rasterization
         {
             switch (currentlyPressedButton.Name)
             {
+                case "DrawCircleButton": //line and circle are exactly the same
                 case "DrawLineButon":
                     currentlyDrawnObject = null;
                     currentlyDrawnPoint.Point = e.GetPosition(MainImageContainer).ToVector2();
@@ -46,6 +55,17 @@ namespace Rasterization
                     break;
                 default:
                     throw new NotImplementedException();
+            }
+        }
+
+        private void CancelDrawingObject()
+        {
+            if(currentlyDrawnObject != null)
+            {
+                DrawingObjects.Remove(currentlyDrawnObject);
+                currentlyDrawnObject = null;
+                currentlyDrawnPoint = null;
+                UpdateMainImage();
             }
         }
 
@@ -83,7 +103,12 @@ namespace Rasterization
 
             foreach(IDrawingObject drawingObject in DrawingObjects)
             {
-                drawingObject.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height);
+                drawingObject.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height, true);
+            }
+
+            foreach(FilledCircle uiCircle in selectedPoints.Values)
+            {
+                uiCircle.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height, false);
             }
 
             // Copy the RGB values back to the bitmap
