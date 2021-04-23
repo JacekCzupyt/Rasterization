@@ -17,14 +17,14 @@ namespace Rasterization.DrawingObjects
         public abstract IEnumerable<DrawingPoint> GetTranslationPoints();
         public abstract DrawingPoint GetClosestPoint(Vector2 pos);
 
-        protected int Flatten((int, int) coords, int Width)
+        protected long Flatten((int, int) coords, int Width)
         {
-            return coords.Item1 + coords.Item2 * Width;
+            return (long)coords.Item1 + (long)coords.Item2 * Width;
         }
 
-        protected (int, int) Unflatten(int ind, int Width)
+        protected (int, int) Unflatten(long ind, int Width)
         {
-            return (ind % Width, ind / Width);
+            return ((int)(ind % Width), (int)(ind / Width));
         }
 
         protected (int, int) RoundToPixels(Vector2 point)
@@ -43,7 +43,7 @@ namespace Rasterization.DrawingObjects
         {
             if(IsInBounds((x, y), bmpData.Width, bmpData.Height))
             {
-                int i = Flatten((x, y), bmpData.Width) * bmpData.Stride / bmpData.Width;
+                long i = Flatten((x, y), bmpData.Width) * bmpData.Stride / bmpData.Width;
                 RgbValues[i] = (byte)(color.B * modifier + RgbValues[i] * (1 - modifier));
                 RgbValues[i + 1] = (byte)(color.G * modifier + RgbValues[i+1] * (1 - modifier));
                 RgbValues[i + 2] = (byte)(color.R * modifier + RgbValues[i+2] * (1 - modifier));

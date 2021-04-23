@@ -5,25 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rasterization"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+        Title="Rasterization" Height="450" Width="800">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="New Image"/>
+                <MenuItem Header="Reset Image"/>
+                <MenuItem Header="Clear Image"/>
+                <Separator/>
+                <MenuItem Header="Save as..."/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Antialiesing" IsCheckable="True" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked"/>
+            </MenuItem>
+        </Menu>
 
-        <StackPanel Orientation="Horizontal">
-            <ToggleButton Name="DrawLineButon" Content="Line" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
-            <ToggleButton Name="DrawCircleButton" Content="Circle" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
-            <ToggleButton Name="DrawPolygonButton" Content="Polygon" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
-        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <Rectangle Name="MainImageContainer" Stretch="Fill" Grid.Row="1" 
+            <StackPanel Orientation="Horizontal">
+                <ToggleButton Name="DrawLineButon" Content="Line" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
+                <ToggleButton Name="DrawCircleButton" Content="Circle" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
+                <ToggleButton Name="DrawPolygonButton" Content="Polygon" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
+            </StackPanel>
+
+            <Rectangle Name="MainImageContainer" Stretch="Fill" Grid.Row="1" 
                    Loaded="MainImageContainer_Loaded" 
                    MouseMove="MainImageContainer_MouseMove"
                    MouseLeftButtonDown="MainImageContainer_MouseLeftButtonDown"
                    MouseLeftButtonUp="MainImageContainer_MouseLeftButtonUp"
                    MouseRightButtonDown="MainImageContainer_MouseRightButtonDown"
                    SizeChanged="MainImageContainer_SizeChanged"/>
-    </Grid>
+        </Grid>
+    </DockPanel>
 </Window>
