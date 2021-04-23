@@ -192,6 +192,12 @@ namespace Rasterization
                 tl.Thickness += e.Delta / 120;
                 UpdateMainImage();
             }
+            if (currentState == UIState.DrawingNewObject && currentlyDrawnObject is Polygon)
+            {
+                Polygon poly = currentlyDrawnObject as Polygon;
+                poly.Thickness += e.Delta / 120;
+                UpdateMainImage();
+            }
         }
     }
 }

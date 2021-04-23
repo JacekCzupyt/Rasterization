@@ -26,7 +26,7 @@ namespace Rasterization.DrawingObjects
             Brush = new FilledCircle(new Vector2(0, 0), thick, color);
         }
 
-        public ThickLine(DrawingPoint p1, DrawingPoint p2, int thick, Color color) : base(p1, p2, color)
+        public ThickLine(DrawingPoint p1, DrawingPoint p2, float thick, Color color) : base(p1, p2, color)
         {
             Brush = new FilledCircle(new Vector2(0, 0), thick, color);
         }

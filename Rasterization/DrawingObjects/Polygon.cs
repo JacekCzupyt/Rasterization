@@ -11,33 +11,35 @@ namespace Rasterization.DrawingObjects
 {
     class Polygon : AbstractDrawingObject
     {
-        public List<DrawingPoint> Points = new List<DrawingPoint>();
-        List<MidpointLine> Edges = new List<MidpointLine>();
+        public float Thickness { get { return Edges[0].Thickness; } set { Edges.ForEach(e => e.Thickness = value); } }
 
-        public Polygon(Color color, Vector2 p0, params Vector2[] list)
+        public List<DrawingPoint> Points = new List<DrawingPoint>();
+        List<ThickLine> Edges = new List<ThickLine>();
+
+        public Polygon(Color color, float thick, Vector2 p0, params Vector2[] list)
         {
             this.color = color;
 
             Points.Add(new DrawingPoint(p0));
             Points.AddRange(list.Select(p => new DrawingPoint(p)));
 
-            InitializeEdges();
+            InitializeEdges(thick);
         }
 
-        public Polygon(Color color, DrawingPoint p0, params DrawingPoint[] list)
+        public Polygon(Color color, float thick, DrawingPoint p0, params DrawingPoint[] list)
         {
             this.color = color;
             Points.Add(p0);
             Points.AddRange(list);
 
-            InitializeEdges();
+            InitializeEdges(thick);
         }
 
-        private void InitializeEdges()
+        private void InitializeEdges(float thick)
         {
             for (int i = 0; i < Points.Count; i++)
             {
-                Edges.Add(new MidpointLine(Points[i], Points[(i + 1) % Points.Count], color));
+                Edges.Add(new ThickLine(Points[i], Points[(i + 1) % Points.Count], thick, color));
             }
         }
 
@@ -50,7 +52,7 @@ namespace Rasterization.DrawingObjects
         {
             Points.Add(p);
             Edges.Last().Point2 = p;
-            Edges.Add(new MidpointLine(p, Points[0], color));
+            Edges.Add(new ThickLine(p, Points[0], Thickness, color));
             return p;
         }
 
