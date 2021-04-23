@@ -100,7 +100,7 @@ namespace Rasterization
 
             foreach(IDrawingObject drawingObject in DrawingObjects)
             {
-                drawingObject.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height, true);
+                drawingObject.Draw(RgbValues, bmpData.Stride, bmpData.Width, bmpData.Height, false);
             }
 
             foreach(FilledCircle uiCircle in selectedPoints.Values)

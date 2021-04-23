@@ -46,9 +46,14 @@ namespace Rasterization.DrawingObjects
 
         public override void Draw(byte[] RgbValues, int stride, int width, int height, bool Antialiesing)
         {
-            if (Antialiesing)
-                throw new NotImplementedException();
+            if (!Antialiesing)
+                DrawSimple(RgbValues, stride, width, height);
+            else
+                DrawAntialiesed(RgbValues, stride, width, height);
+        }
 
+        public void DrawSimple(byte[] RgbValues, int stride, int width, int height)
+        {
             updateRadius();
             void swap(ref int a, ref int b) { int tmp = a; a = b; b = tmp; }
             void modPutPixel(int _x, int _y, int x0, int y0, int c0)
@@ -86,6 +91,39 @@ namespace Rasterization.DrawingObjects
                 }
                 x++;
                 PutCirclePixel(x, y, x1, y1);
+            }
+        }
+
+        public void DrawAntialiesed(byte[] RgbValues, int stride, int width, int height)
+        {
+            updateRadius();
+            void swap(ref int a, ref int b) { int tmp = a; a = b; b = tmp; }
+            void modPutPixel(int _x, int _y, int x0, int y0, int c0, float mod)
+            {
+                if (c0 % 2 >= 1)
+                    swap(ref _x, ref _y);
+                if (c0 % 4 >= 2)
+                    _x = -_x;
+                if (c0 % 8 >= 4)
+                    _y = -_y;
+                PutPixel(x0 + _x, y0 + _y, RgbValues, stride, width, height, mod);
+            }
+            void PutCirclePixel(int _x, int _y, int x0, int y0, float mod)
+            {
+                for (int c = 0; c < 8; c++)
+                    modPutPixel(_x, _y, x0, y0, c, mod);
+            }
+
+
+            int x1 = (int)Math.Round(Position.X), y1 = (int)Math.Round(Position.Y);
+            int r = (int)Math.Round(Radius);
+
+            float y = r;
+            for(int x = 0;x<y;x++)
+            {
+                y = (float)Math.Sqrt(r * r - x * x);
+                PutCirclePixel(x, (int)y, x1, y1, 1 - y % 1);
+                PutCirclePixel(x, (int)y+1, x1, y1, y % 1);
             }
         }
 
