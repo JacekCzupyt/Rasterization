@@ -26,8 +26,7 @@ namespace Rasterization
             switch (currentlyPressedButton.Name)
             {
                 case "DrawLineButon":
-                    //MidpointLine line = new MidpointLine(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), Color.Black);
-                    ThickLine line = new ThickLine(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), 5, Color.Black);
+                    ThickLine line = new ThickLine(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), 2, Color.Black);
                     currentlyDrawnObject = line;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = line.Point2;
@@ -39,7 +38,7 @@ namespace Rasterization
                     currentlyDrawnPoint = circle.radiusUtilityPoint;
                     break;
                 case "DrawPolygonButton":
-                    Polygon poly = new Polygon(Color.Black, e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2());
+                    Polygon poly = new Polygon(Color.Black, 2, e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2());
                     currentlyDrawnObject = poly;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = poly.Points[1];
