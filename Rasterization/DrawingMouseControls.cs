@@ -84,21 +84,22 @@ namespace Rasterization
 
             IEnumerable<DrawingPoint> ClosestPoints = DrawingObjects.Select(obj => obj.GetClosestPoint(pos));
 
-            DrawingPoint ClosestPoint = ClosestPoints.Aggregate((min, x) => min.dist(pos) < x.dist(pos) ? min : x);
-
-            if (ClosestPoint.dist(pos) <= MaximumSelectDistance)
+            if (ClosestPoints.Any())
             {
-                if (selectedPoints.ContainsKey(ClosestPoint))
+                DrawingPoint ClosestPoint = ClosestPoints.Aggregate((min, x) => min.dist(pos) < x.dist(pos) ? min : x);
+
+                if (ClosestPoint.dist(pos) <= MaximumSelectDistance)
                 {
-                    selectedPoints.Remove(ClosestPoint);
-                }
-                else
-                {
-                    selectedPoints.Add(ClosestPoint, new FilledCircle(ClosestPoint, PointRadius, System.Drawing.Color.Blue));
+                    if (selectedPoints.ContainsKey(ClosestPoint))
+                    {
+                        selectedPoints.Remove(ClosestPoint);
+                    }
+                    else
+                    {
+                        selectedPoints.Add(ClosestPoint, new FilledCircle(ClosestPoint, PointRadius, System.Drawing.Color.Blue));
+                    }
                 }
             }
-
-
         }
     }
 }
