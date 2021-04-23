@@ -16,12 +16,19 @@ namespace Rasterization.DrawingObjects
 
         public DrawingPoint radiusUtilityPoint;
 
+        private void Position_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            radiusUtilityPoint.Point = Position.Point + new Vector2(rad, 0);
+        }
+
         public MidpointCircle(Vector2 pos, float rad, Color color)
         {
             this.color = color;
             this.Position = new DrawingPoint(pos);
             radiusUtilityPoint = new DrawingPoint(new Vector2());
             this.Radius = rad;
+
+            this.Position.PropertyChanged += Position_PropertyChanged;
         }
 
         public MidpointCircle(DrawingPoint pos, float rad, Color color)
@@ -30,6 +37,8 @@ namespace Rasterization.DrawingObjects
             this.Position = pos;
             radiusUtilityPoint = new DrawingPoint(new Vector2());
             this.Radius = rad;
+
+            this.Position.PropertyChanged += Position_PropertyChanged;
         }
 
         public MidpointCircle(Vector2 pos, Vector2 point2, Color color)
@@ -37,6 +46,8 @@ namespace Rasterization.DrawingObjects
             this.color = color;
             this.Position = new DrawingPoint(pos);
             this.radiusUtilityPoint = new DrawingPoint(point2);
+
+            this.Position.PropertyChanged += Position_PropertyChanged;
         }
 
         protected void updateRadius()

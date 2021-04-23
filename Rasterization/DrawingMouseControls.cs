@@ -40,6 +40,7 @@ namespace Rasterization
                         p.Point += newMousePos - PreviousMousePosition;
                     }
                     PreviousMousePosition = newMousePos;
+                    UpdateMainImage();
                     break;
             }
         }
