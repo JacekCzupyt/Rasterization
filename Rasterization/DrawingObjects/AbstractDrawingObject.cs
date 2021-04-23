@@ -41,9 +41,9 @@ namespace Rasterization.DrawingObjects
             if(IsInBounds((x, y), width, height))
             {
                 int i = Flatten((x, y), width) * stride / width;
-                RgbValues[i] = (byte)(color.R * modifier + RgbValues[i] * (1-modifier));
-                RgbValues[i + 1] = (byte)(color.G * modifier + RgbValues[i+1] * (1 - modifier));
-                RgbValues[i + 2] = (byte)(color.B * modifier + RgbValues[i+2] * (1 - modifier));
+                RgbValues[i+1] = (byte)(color.R * modifier + RgbValues[i+1] * (1 - modifier));
+                RgbValues[i + 2] = (byte)(color.G * modifier + RgbValues[i+2] * (1 - modifier));
+                RgbValues[i + 3] = (byte)(color.B * modifier + RgbValues[i+3] * (1 - modifier));
             }
         }
     }
