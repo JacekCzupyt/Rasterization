@@ -9,6 +9,13 @@ using System.Threading.Tasks;
 
 namespace Rasterization.DrawingObjects
 {
+    /* I'm not sure how Xiaolin Wu antialiesing is supposed to work on a brush type thick line
+     * The task stated that the "thickness should be ignored", but I don't think that makes sense
+     * I tried several methods that utilize the Xiaolin Wu in some way, the one that worked best,
+     * implemented below, is drawing using a antialiased circular brush, and then drawing 2 antialiased
+     * thin lines on the edges of the main thick line
+     */
+
     class ThickLine : MidpointLine
     {
         private FilledCircle Brush;
@@ -34,8 +41,16 @@ namespace Rasterization.DrawingObjects
             {
                 CurrentlyDrawingAntialiesed = Antialiesing;
                 DrawSimple(RgbValues, bmpData);
+                if (Antialiesing)
+                {
+                    //this draws 2 antialiesed thin lines on the edges of the the main thick line
+                    Vector2 dir = Point2.Point - Point1.Point;
+                    dir /= dir.Length();
+                    Vector2 orthogonal = new Vector2(-dir.Y, dir.X);
+                    new MidpointLine(Point1.Point + orthogonal * Thickness, Point2.Point + orthogonal * Thickness, color).Draw(RgbValues, bmpData, Antialiesing);
+                    new MidpointLine(Point1.Point - orthogonal * Thickness, Point2.Point - orthogonal * Thickness, color).Draw(RgbValues, bmpData, Antialiesing);
+                }
             }
-            
         }
 
         protected override void PutPixel(int x, int y, byte[] RgbValues, BitmapData bmpData, double modifier = 1)
