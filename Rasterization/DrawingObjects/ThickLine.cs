@@ -28,8 +28,14 @@ namespace Rasterization.DrawingObjects
 
         public override void Draw(byte[] RgbValues, BitmapData bmpData, bool Antialiesing)
         {
-            CurrentlyDrawingAntialiesed = Antialiesing;
-            DrawSimple(RgbValues, bmpData);
+            if (Thickness == 0)
+                new MidpointLine(Point1, Point2, color).Draw(RgbValues, bmpData, Antialiesing);
+            else
+            {
+                CurrentlyDrawingAntialiesed = Antialiesing;
+                DrawSimple(RgbValues, bmpData);
+            }
+            
         }
 
         protected override void PutPixel(int x, int y, byte[] RgbValues, BitmapData bmpData, double modifier = 1)

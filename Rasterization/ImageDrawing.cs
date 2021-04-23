@@ -26,7 +26,8 @@ namespace Rasterization
             switch (currentlyPressedButton.Name)
             {
                 case "DrawLineButon":
-                    MidpointLine line = new MidpointLine(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), Color.Black);
+                    //MidpointLine line = new MidpointLine(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), Color.Black);
+                    ThickLine line = new ThickLine(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), 5, Color.Black);
                     currentlyDrawnObject = line;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = line.Point2;
