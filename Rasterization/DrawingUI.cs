@@ -24,11 +24,15 @@ namespace Rasterization
             if (sender as ToggleButton == currentlyPressedButton)
             {
                 currentlyPressedButton = null;
+                CancelDrawingObject();
                 currentState = UIState.Nothing;
             }
             else
             {
                 currentlyPressedButton = sender as ToggleButton;
+                CancelDrawingObject();
+                selectedPoints.Clear();
+                UpdateMainImage();
                 currentState = UIState.PreparingToDraw;
             }
                 

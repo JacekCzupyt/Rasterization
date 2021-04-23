@@ -60,10 +60,13 @@ namespace Rasterization
 
         private void CancelDrawingObject()
         {
-            DrawingObjects.Remove(currentlyDrawnObject);
-            currentlyDrawnObject = null;
-            currentlyDrawnPoint = null;
-            UpdateMainImage();
+            if(currentlyDrawnObject != null)
+            {
+                DrawingObjects.Remove(currentlyDrawnObject);
+                currentlyDrawnObject = null;
+                currentlyDrawnPoint = null;
+                UpdateMainImage();
+            }
         }
 
         void UpdateMainImage()
