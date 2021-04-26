@@ -21,24 +21,26 @@ namespace Rasterization
 
         Dictionary<DrawingPoint, FilledCircle> selectedPoints = new Dictionary<DrawingPoint, FilledCircle>();
 
+        Color CurrentColor = Color.Black;
+
         private void BeginDrawingObject(MouseButtonEventArgs e)
         {
             switch (currentlyPressedButton.Name)
             {
                 case "DrawLineButon":
-                    ThickLine line = new ThickLine(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), 2, Color.Black);
+                    ThickLine line = new ThickLine(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), 2, CurrentColor);
                     currentlyDrawnObject = line;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = line.Point2;
                     break;
                 case "DrawCircleButton":
-                    MidpointCircle circle = new MidpointCircle(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), Color.Black);
+                    MidpointCircle circle = new MidpointCircle(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), CurrentColor);
                     currentlyDrawnObject = circle;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = circle.radiusUtilityPoint;
                     break;
                 case "DrawPolygonButton":
-                    Polygon poly = new Polygon(Color.Black, 2, e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2());
+                    Polygon poly = new Polygon(CurrentColor, 2, e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2());
                     currentlyDrawnObject = poly;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = poly.Points[1];
