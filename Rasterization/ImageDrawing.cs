@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Rasterization.DrawingObjects;
@@ -28,19 +24,19 @@ namespace Rasterization
             switch (currentlyPressedButton.Name)
             {
                 case "DrawLineButon":
-                    ThickLine line = new ThickLine(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), 2, CurrentColor);
+                    ThickLine line = new ThickLine((Vector)e.GetPosition(MainImageContainer), (Vector)e.GetPosition(MainImageContainer), 2, CurrentColor);
                     currentlyDrawnObject = line;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = line.Point2;
                     break;
                 case "DrawCircleButton":
-                    MidpointCircle circle = new MidpointCircle(e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2(), CurrentColor);
+                    MidpointCircle circle = new MidpointCircle((Vector)e.GetPosition(MainImageContainer), (Vector)e.GetPosition(MainImageContainer), CurrentColor);
                     currentlyDrawnObject = circle;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = circle.radiusUtilityPoint;
                     break;
                 case "DrawPolygonButton":
-                    Polygon poly = new Polygon(CurrentColor, 2, e.GetPosition(MainImageContainer).ToVector2(), e.GetPosition(MainImageContainer).ToVector2());
+                    Polygon poly = new Polygon(CurrentColor, 2, (Vector)e.GetPosition(MainImageContainer), (Vector)e.GetPosition(MainImageContainer));
                     currentlyDrawnObject = poly;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = poly.Points[1];
@@ -57,14 +53,14 @@ namespace Rasterization
                 case "DrawCircleButton": //line and circle are exactly the same
                 case "DrawLineButon":
                     currentlyDrawnObject = null;
-                    currentlyDrawnPoint.Point = e.GetPosition(MainImageContainer).ToVector2();
+                    currentlyDrawnPoint.Point = (Vector)e.GetPosition(MainImageContainer);
                     currentlyDrawnPoint = null;
                     currentState = UIState.PreparingToDraw;
                     UpdateMainImage();
                     break;
                 case "DrawPolygonButton":
                     Polygon poly = currentlyDrawnObject as Polygon;
-                    Vector2 mousePos = e.GetPosition(MainImageContainer).ToVector2();
+                    Vector mousePos = (Vector)e.GetPosition(MainImageContainer);
                     if (poly.Points.Count > 2 && poly.Points[0].dist(mousePos) < MaximumSelectDistance)
                     {
                         currentlyDrawnObject = null;

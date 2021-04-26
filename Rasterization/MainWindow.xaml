@@ -11,11 +11,9 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="New Image"/>
-                <MenuItem Header="Reset Image"/>
-                <MenuItem Header="Clear Image"/>
-                <Separator/>
-                <MenuItem Header="Save as..."/>
+                <MenuItem Header="New" Click="NewMenuItem_Click"/>
+                <MenuItem Header="Save" Click="SaveMenuItem_Click"/>
+                <MenuItem Header="Open" Click="OpenMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem Header="Antialiesing" IsCheckable="True" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked"/>

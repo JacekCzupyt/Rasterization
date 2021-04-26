@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace Rasterization.DrawingObjects
 {
+    [Serializable]
     class MidpointLine : AbstractDrawingObject
     {
         public DrawingPoint Point1, Point2;
 
-        public MidpointLine(Vector2 p1, Vector2 p2, Color color)
+        public MidpointLine(Vector p1, Vector p2, Color color)
         {
             this.Point1 = new DrawingPoint(p1);
             this.Point2 = new DrawingPoint(p2);
@@ -115,8 +113,8 @@ namespace Rasterization.DrawingObjects
             }
 
 
-            float y = 0;
-            float m = (float)dy / dx;
+            double y = 0;
+            double m = (double)dy / dx;
 
             for (int x = 0; x < dx; x++)
             {
@@ -131,7 +129,7 @@ namespace Rasterization.DrawingObjects
             return new List<DrawingPoint>() { Point1, Point2 };
         }
 
-        public override DrawingPoint GetClosestPoint(Vector2 pos)
+        public override DrawingPoint GetClosestPoint(Vector pos)
         {
             return Point1.dist(pos) < Point2.dist(pos) ? Point1 : Point2;
         }
