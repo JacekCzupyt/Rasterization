@@ -9,7 +9,11 @@ using System.Threading.Tasks;
 
 namespace Rasterization.DrawingObjects
 {
-    /* I'm not sure how Xiaolin Wu antialiesing is supposed to work on a brush type thick line
+    /* I originally thought that "ignore like thickness" was a method for drawing antialiased thick lines,
+     * not that we can just draw thin lines instead. By the time I read your answer, I alrady implemented this
+     * weird algorithm, which mostly works, so I may as well keep it here.
+     * 
+     * I'm not sure how Xiaolin Wu antialiesing is supposed to work on a brush type thick line
      * The task stated that the "thickness should be ignored", but I don't think that makes sense
      * I tried several methods that utilize the Xiaolin Wu in some way, the one that worked best,
      * implemented below, is drawing using a antialiased circular brush, and then drawing 2 antialiased
