@@ -182,17 +182,37 @@ namespace Rasterization
 
         private void MainImageContainer_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if(currentState == UIState.DrawingNewObject && currentlyDrawnObject is ThickLine)
+            switch (currentState)
             {
-                ThickLine tl = currentlyDrawnObject as ThickLine;
-                tl.Thickness += e.Delta / 120;
-                UpdateMainImage();
+                case UIState.DrawingNewObject:
+                    ChangeThickness(currentlyDrawnObject, e);
+                    UpdateMainImage();
+                    break;
+                case UIState.MovingExistingPoints:
+                case UIState.SelectingPoints:
+                    var SelectedObjects = DrawingObjects.Where(shape => shape.GetTranslationPoints().Intersect(selectedPoints.Keys).Any());
+                    foreach (var s in SelectedObjects)
+                    {
+                        ChangeThickness(s, e);
+                    }
+                    UpdateMainImage();
+                    break;
             }
-            if (currentState == UIState.DrawingNewObject && currentlyDrawnObject is Polygon)
+        }
+
+        private void ChangeThickness(IDrawingObject drawingObject, MouseWheelEventArgs e)
+        {
+            if (drawingObject is ThickLine)
             {
-                Polygon poly = currentlyDrawnObject as Polygon;
+                ThickLine tl = drawingObject as ThickLine;
+                tl.Thickness += e.Delta / 120;
+                
+            }
+            if (drawingObject is Polygon)
+            {
+                Polygon poly = drawingObject as Polygon;
                 poly.Thickness += e.Delta / 120;
-                UpdateMainImage();
+                
             }
         }
     }
