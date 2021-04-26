@@ -23,18 +23,18 @@ namespace Rasterization
         }
 
         UIState currentState = UIState.Nothing;
-        Vector2 PreviousMousePosition;
+        Vector PreviousMousePosition;
 
         private void MainImageContainer_MouseMove(object sender, MouseEventArgs e)
         {
             switch (currentState)
             {
                 case UIState.DrawingNewObject:
-                    currentlyDrawnPoint.Point = e.GetPosition(MainImageContainer).ToVector2();
+                    currentlyDrawnPoint.Point = (Vector)e.GetPosition(MainImageContainer);
                     UpdateMainImage();
                     break;
                 case UIState.MovingExistingPoints:
-                    var newMousePos = e.GetPosition(MainImageContainer).ToVector2();
+                    var newMousePos = (Vector)e.GetPosition(MainImageContainer);
                     foreach (var p in selectedPoints.Keys)
                     {
                         p.Point += newMousePos - PreviousMousePosition;
@@ -110,7 +110,7 @@ namespace Rasterization
             
             const float PointRadius = 3;
 
-            Vector2 pos = e.GetPosition(MainImageContainer).ToVector2();
+            Vector pos = (Vector)e.GetPosition(MainImageContainer);
 
             IEnumerable<(IDrawingObject, DrawingPoint)> ClosestPoints = DrawingObjects.Select(obj => (obj, obj.GetClosestPoint(pos)));
 
@@ -180,7 +180,7 @@ namespace Rasterization
                     }
                 }
             }
-            PreviousMousePosition = e.GetPosition(MainImageContainer).ToVector2();
+            PreviousMousePosition = (Vector)e.GetPosition(MainImageContainer);
             currentState = selectedPoints.Count > 0 ? UIState.MovingExistingPoints : UIState.Nothing;
         }
 

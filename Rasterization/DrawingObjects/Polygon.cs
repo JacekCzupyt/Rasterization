@@ -6,18 +6,19 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Rasterization.DrawingObjects
 {
     [Serializable]
     class Polygon : AbstractDrawingObject
     {
-        public float Thickness { get { return Edges[0].Thickness; } set { Edges.ForEach(e => e.Thickness = value); } }
+        public double Thickness { get { return Edges[0].Thickness; } set { Edges.ForEach(e => e.Thickness = value); } }
 
         public List<DrawingPoint> Points = new List<DrawingPoint>();
         List<ThickLine> Edges = new List<ThickLine>();
 
-        public Polygon(Color color, float thick, Vector2 p0, params Vector2[] list)
+        public Polygon(Color color, double thick, Vector p0, params Vector[] list)
         {
             this.color = color;
 
@@ -27,7 +28,7 @@ namespace Rasterization.DrawingObjects
             InitializeEdges(thick);
         }
 
-        public Polygon(Color color, float thick, DrawingPoint p0, params DrawingPoint[] list)
+        public Polygon(Color color, double thick, DrawingPoint p0, params DrawingPoint[] list)
         {
             this.color = color;
             Points.Add(p0);
@@ -36,7 +37,7 @@ namespace Rasterization.DrawingObjects
             InitializeEdges(thick);
         }
 
-        private void InitializeEdges(float thick)
+        private void InitializeEdges(double thick)
         {
             for (int i = 0; i < Points.Count; i++)
             {
@@ -44,7 +45,7 @@ namespace Rasterization.DrawingObjects
             }
         }
 
-        public DrawingPoint AddPoint(Vector2 v)
+        public DrawingPoint AddPoint(Vector v)
         {
             return AddPoint(new DrawingPoint(v));
         }
@@ -72,7 +73,7 @@ namespace Rasterization.DrawingObjects
                 e.Draw(RgbValues, bmpData, Antialiesing);
         }
 
-        public override DrawingPoint GetClosestPoint(Vector2 pos)
+        public override DrawingPoint GetClosestPoint(Vector pos)
         {
             return Points.Aggregate((min, p) => min.dist(pos) < p.dist(pos) ? min : p);
         }

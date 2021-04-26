@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Rasterization.DrawingObjects
 {
@@ -18,7 +19,7 @@ namespace Rasterization.DrawingObjects
         void Draw(byte[] RgbValues, BitmapData bmpData, bool Antialiesing = false);
 
         /// Returns the point belonging to the object closest to a given position
-        DrawingPoint GetClosestPoint(Vector2 pos);
+        DrawingPoint GetClosestPoint(Vector pos);
         
         /// Returns all points belonging to the object
         IEnumerable<DrawingPoint> GetTranslationPoints();

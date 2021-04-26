@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Rasterization.DrawingObjects
 {
@@ -17,7 +18,7 @@ namespace Rasterization.DrawingObjects
         public virtual Color color { get; set; }
         public abstract void Draw(byte[] RgbValues, BitmapData bmpData, bool Antialiesing);
         public abstract IEnumerable<DrawingPoint> GetTranslationPoints();
-        public abstract DrawingPoint GetClosestPoint(Vector2 pos);
+        public abstract DrawingPoint GetClosestPoint(Vector pos);
 
         protected long Flatten((int, int) coords, int Width)
         {
@@ -29,7 +30,7 @@ namespace Rasterization.DrawingObjects
             return ((int)(ind % Width), (int)(ind / Width));
         }
 
-        protected (int, int) RoundToPixels(Vector2 point)
+        protected (int, int) RoundToPixels(Vector point)
         {
             return ((int)Math.Round(point.X), (int)Math.Round(point.Y));
         }
@@ -52,7 +53,7 @@ namespace Rasterization.DrawingObjects
             }
         }
 
-        protected void modPutPixel(int _x, int _y, int x0, int y0, int c0, byte[] RgbValues, BitmapData bmpData, float mod = 1)
+        protected void modPutPixel(int _x, int _y, int x0, int y0, int c0, byte[] RgbValues, BitmapData bmpData, double mod = 1)
         {
             if (c0 % 2 >= 1)
                 swap(ref _x, ref _y);

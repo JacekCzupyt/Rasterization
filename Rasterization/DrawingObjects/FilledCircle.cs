@@ -6,19 +6,20 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Rasterization.DrawingObjects
 {
     [Serializable]
     class FilledCircle : MidpointCircle
     {
-        public FilledCircle(Vector2 pos, float rad, Color color) : base(pos, rad, color) { }
+        public FilledCircle(Vector pos, double rad, Color color) : base(pos, rad, color) { }
 
-        public FilledCircle(DrawingPoint pos, float rad, Color color) : base(pos, rad, color) { }
+        public FilledCircle(DrawingPoint pos, double rad, Color color) : base(pos, rad, color) { }
 
-        public FilledCircle(Vector2 pos, Vector2 point2, Color color) : base(pos, point2, color) {}
+        public FilledCircle(Vector pos, Vector point2, Color color) : base(pos, point2, color) {}
 
-        void PutFillCirclePixel(int _x, int _y, int x0, int y0, byte[] RgbValues, BitmapData bmpData, float mod = 1)
+        void PutFillCirclePixel(int _x, int _y, int x0, int y0, byte[] RgbValues, BitmapData bmpData, double mod = 1)
         {
             for (int i = 0; i <= _y; i++)
                 for (int c = 0; c < 8; c++)
@@ -64,12 +65,12 @@ namespace Rasterization.DrawingObjects
 
 
             int x1 = (int)Math.Round(Position.X), y1 = (int)Math.Round(Position.Y);
-            float r = Radius;
+            double r = Radius;
 
-            float y = r;
+            double y = r;
             for (int x = 0; x < y; x++)
             {
-                y = (float)Math.Sqrt(r * r - x * x);
+                y = (double)Math.Sqrt(r * r - x * x);
                 PutFillCirclePixel(x, (int)y, x1, y1, RgbValues, bmpData);
                 PutCirclePixel(x, (int)y + 1, x1, y1, RgbValues, bmpData, y % 1);
             }
