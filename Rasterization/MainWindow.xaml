@@ -1,9 +1,11 @@
-﻿<Window x:Class="Rasterization.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Rasterization"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="Rasterization.MainWindow"
         mc:Ignorable="d"
         Title="Rasterization" Height="450" Width="800">
     <DockPanel>
@@ -27,12 +29,14 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal">
-                <ToggleButton Name="DrawLineButon" Content="Line" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
-                <ToggleButton Name="DrawCircleButton" Content="Circle" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
-                <ToggleButton Name="DrawPolygonButton" Content="Polygon" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
+                <ToggleButton x:Name="DrawLineButon" Content="Line" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
+                <ToggleButton x:Name="DrawCircleButton" Content="Circle" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
+                <ToggleButton x:Name="DrawPolygonButton" Content="Polygon" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
+
+                <xctk:ColorPicker Name="ColorPalette" SelectedColorChanged="ColorPalette_SelectedColorChanged"/>
             </StackPanel>
 
-            <Rectangle Name="MainImageContainer" Stretch="Fill" Grid.Row="1" 
+            <Rectangle x:Name="MainImageContainer" Stretch="Fill" Grid.Row="1" 
                    Loaded="MainImageContainer_Loaded" 
                    MouseMove="MainImageContainer_MouseMove"
                    MouseLeftButtonDown="MainImageContainer_MouseLeftButtonDown"
