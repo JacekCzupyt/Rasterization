@@ -26,6 +26,5 @@ namespace Rasterization
             InitializeComponent();
         }
 
-
     }
 }

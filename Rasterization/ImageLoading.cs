@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Input;
 using Microsoft.Win32;
 using System.Runtime.Serialization.Formatters.Binary;
+using Rasterization.DrawingObjects;
 
 namespace Rasterization
 {
@@ -91,6 +92,28 @@ namespace Rasterization
                         encoder.Frames.Add(BitmapFrame.Create(BitmapToImageSource(mainBitmap)));
                         encoder.Save(fs);
                     }
+                }
+            }
+        }
+
+
+        private void OpenMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Vector image|*.vec";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    byte[] data = File.ReadAllBytes(openFileDialog.FileName);
+
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    DrawingObjects = formatter.Deserialize(new MemoryStream(data)) as List<IDrawingObject>;
+                    UpdateMainImage();
+                }
+                catch (System.NotSupportedException)
+                {
+                    throw new System.NotSupportedException();
                 }
             }
         }
