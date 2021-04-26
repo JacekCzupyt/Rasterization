@@ -186,6 +186,7 @@ namespace Rasterization
             {
                 case UIState.DrawingNewObject:
                     ChangeThickness(currentlyDrawnObject, e);
+                    UpdateMainImage();
                     break;
                 case UIState.MovingExistingPoints:
                 case UIState.SelectingPoints:
@@ -194,6 +195,7 @@ namespace Rasterization
                     {
                         ChangeThickness(s, e);
                     }
+                    UpdateMainImage();
                     break;
             }
         }
@@ -204,13 +206,13 @@ namespace Rasterization
             {
                 ThickLine tl = drawingObject as ThickLine;
                 tl.Thickness += e.Delta / 120;
-                UpdateMainImage();
+                
             }
             if (drawingObject is Polygon)
             {
                 Polygon poly = drawingObject as Polygon;
                 poly.Thickness += e.Delta / 120;
-                UpdateMainImage();
+                
             }
         }
     }

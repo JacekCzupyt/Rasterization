@@ -74,5 +74,22 @@ namespace Rasterization
                 UpdateMainImage();
             }
         }
+
+        private void MainImageContainer_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if(e.Key == System.Windows.Input.Key.Delete)
+            {
+                switch (currentState)
+                {
+                    case UIState.SelectingPoints:
+                    case UIState.MovingExistingPoints:
+                        DrawingObjects.RemoveAll(shape => shape.GetTranslationPoints().Intersect(selectedPoints.Keys).Any());
+                        selectedPoints.Clear();
+                        UpdateMainImage();
+                        break;
+                }
+            }
+            
+        }
     }
 }
