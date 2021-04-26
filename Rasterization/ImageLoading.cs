@@ -117,5 +117,11 @@ namespace Rasterization
                 }
             }
         }
+
+        private void NewMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            DrawingObjects.Clear();
+            UpdateMainImage();
+        }
     }
 }
