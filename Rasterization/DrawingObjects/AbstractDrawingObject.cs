@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 namespace Rasterization.DrawingObjects
 {
     /// Mostly implements some helper functions that most drawing algorithms will use
+    [Serializable]
     abstract class AbstractDrawingObject : IDrawingObject
     {
+
         public virtual Color color { get; set; }
         public abstract void Draw(byte[] RgbValues, BitmapData bmpData, bool Antialiesing);
         public abstract IEnumerable<DrawingPoint> GetTranslationPoints();

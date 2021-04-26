@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Rasterization.DrawingObjects
 {
+    [Serializable]
     class FilledCircle : MidpointCircle
     {
         public FilledCircle(Vector2 pos, float rad, Color color) : base(pos, rad, color) { }

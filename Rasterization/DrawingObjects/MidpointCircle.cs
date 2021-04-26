@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Rasterization.DrawingObjects
 {
+    [Serializable]
     class MidpointCircle : AbstractDrawingObject
     {
         public DrawingPoint Position;

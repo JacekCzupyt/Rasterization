@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Rasterization.DrawingObjects
 {
+    [Serializable]
     class Polygon : AbstractDrawingObject
     {
         public float Thickness { get { return Edges[0].Thickness; } set { Edges.ForEach(e => e.Thickness = value); } }

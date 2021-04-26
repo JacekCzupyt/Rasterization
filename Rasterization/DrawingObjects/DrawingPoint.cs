@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Rasterization.DrawingObjects
 {
+    [Serializable]
     class DrawingPoint : INotifyPropertyChanged
     {
         public DrawingPoint(Vector2 p) { Point = p; }

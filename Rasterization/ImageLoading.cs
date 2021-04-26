@@ -10,6 +10,7 @@ using System.IO;
 using System.Windows.Media;
 using System.Windows.Input;
 using Microsoft.Win32;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Rasterization
 {
@@ -62,7 +63,15 @@ namespace Rasterization
                 {
                     if (dialog.FilterIndex == 1)
                     {
-                        throw new NotImplementedException();
+
+                        BinaryFormatter formatter = new BinaryFormatter();
+
+                        using (var mem = new MemoryStream())
+                        {
+                            formatter.Serialize(mem, DrawingObjects);
+                            var byteArr = mem.ToArray();
+                            fs.Write(byteArr, 0, byteArr.Length);
+                        }
                     }
                     else
                     {

@@ -20,6 +20,7 @@ namespace Rasterization.DrawingObjects
      * thin lines on the edges of the main thick line
      */
 
+    [Serializable]
     class ThickLine : MidpointLine
     {
         private FilledCircle brush;
