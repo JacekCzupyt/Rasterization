@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 
 namespace Rasterization
 {
@@ -50,6 +51,31 @@ namespace Rasterization
         {
             Antialiesing = false;
             UpdateMainImage();
+        }
+
+        private void ColorPalette_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if(e.NewValue != null)
+            {
+                if (currentState == UIState.SelectingPoints || currentState == UIState.MovingExistingPoints)
+                {
+                    var map = DrawingObjects.Select(x => (x, x.GetTranslationPoints().ToList()));
+                    foreach (var p in selectedPoints.Keys)
+                    {
+                        foreach (var points in map)
+                        {
+                            if (points.Item2.Contains(p))
+                            {
+                                Color c = e.NewValue.Value;
+                                System.Drawing.Color c2 = System.Drawing.Color.FromArgb(c.A, c.R, c.G, c.B);
+                                points.Item1.color = c2;
+                            }
+
+                        }
+                    }
+                }
+                UpdateMainImage();
+            }
         }
     }
 }
