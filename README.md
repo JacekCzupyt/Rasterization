@@ -9,7 +9,7 @@ Thick lines are drawn using the brush algorithm.
 
 ## How to use
 
-#### Lines
+### Lines
 
 Click the line button, then left click on the canvas to begin drawing. 
 
@@ -17,7 +17,7 @@ Use mousewheel to change thickness, using the minimum value will cause it to use
 
 Left click again to finish drawing, or right click to cancel.
 
-#### Polygons
+### Polygons
 
 Click the polygon button, then left click on the canvas to begin drawing. 
 
@@ -25,7 +25,7 @@ Change thickness in the same way as lines.
 
 Left click again to add a vertex, right click (or left click the starting point) to finish drawing.
 
-#### Circles
+### Circles
 
 Click the circle button, then left click to pick the circle center. 
 
@@ -33,7 +33,7 @@ Left click again to pick the radius, or right click to cancel.
 
 Circles do not have width.
 
-#### Selecting and moving points
+### Selecting and moving points
 
 When no shape button is pressed, left click to select a point. 
 
@@ -49,13 +49,13 @@ Press delete in order to remove the shapes that the selected points belong to.
 
 Right click to deselect all points.
 
-#### Colors
+### Colors
 
 Pick a color before drawing a shape in order to set its color.
 
 Pick a new color while some points are selected in order to recolor the shapes they belong to.
 
-#### Menu
+### Menu
 
 Use the menu to turn antialiesing on or off, clear the image, save it, export it to jpg or png, or load an existing image.
 
