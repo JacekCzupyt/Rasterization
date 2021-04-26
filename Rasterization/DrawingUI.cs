@@ -57,6 +57,9 @@ namespace Rasterization
         {
             if(e.NewValue != null)
             {
+                Color c = e.NewValue.Value;
+                CurrentColor = System.Drawing.Color.FromArgb(c.A, c.R, c.G, c.B);
+    
                 if (currentState == UIState.SelectingPoints || currentState == UIState.MovingExistingPoints)
                 {
                     var map = DrawingObjects.Select(x => (x, x.GetTranslationPoints().ToList()));
@@ -66,9 +69,8 @@ namespace Rasterization
                         {
                             if (points.Item2.Contains(p))
                             {
-                                Color c = e.NewValue.Value;
-                                System.Drawing.Color c2 = System.Drawing.Color.FromArgb(c.A, c.R, c.G, c.B);
-                                points.Item1.color = c2;
+                                
+                                points.Item1.color = CurrentColor;
                             }
 
                         }
