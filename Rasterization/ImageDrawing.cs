@@ -21,6 +21,7 @@ namespace Rasterization
 
         private void BeginDrawingObject(MouseButtonEventArgs e)
         {
+            Vector mousePos = (Vector)e.GetPosition(MainImageContainer);
             switch (currentlyPressedButton.Name)
             {
                 case "DrawLineButon":
@@ -42,7 +43,7 @@ namespace Rasterization
                     currentlyDrawnPoint = poly.Points[1];
                     break;
                 case "DrawCapsuleButton":
-                    Capsule cap = new Capsule((Vector)e.GetPosition(MainImageContainer), (Vector)e.GetPosition(MainImageContainer), 0, CurrentColor);
+                    Capsule cap = new Capsule(mousePos, mousePos, 0, CurrentColor);
                     currentlyDrawnObject = cap;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = cap.Point2;

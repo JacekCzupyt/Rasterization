@@ -13,7 +13,7 @@ namespace Rasterization.DrawingObjects
     class Capsule : AbstractDrawingObject
     {
         public DrawingPoint Point1, Point2;
-        private Vector Dir { get { Vector dir = Point2.Point - Point1.Point; dir.Normalize(); return dir; } }
+        private Vector Dir { get { Vector dir = Point2.Point - Point1.Point; dir.Normalize(); return double.IsNaN(dir.Length) ? new Vector(1, 0) : dir; } }
         private double rad;
 
         public double Radius { get { updateRadius(); return rad; } set { rad = value; radiusUtilityPoint.Point = Point2.Point + Dir * rad; } }
@@ -36,24 +36,24 @@ namespace Rasterization.DrawingObjects
             Radius = rad;
         }
 
-        public Capsule(Vector p1, Vector p2, double rad, Color color)
+        public Capsule(Vector p1, Vector p2, double radi, Color color)
         {
             this.Point1 = new DrawingPoint(p1);
             this.Point2 = new DrawingPoint(p2);
             radiusUtilityPoint = new DrawingPoint(new Vector());
-            this.Radius = rad;
+            this.Radius = radi;
             this.color = color;
 
             this.Point1.PropertyChanged += Position_PropertyChanged;
             this.Point2.PropertyChanged += Position_PropertyChanged;
         }
 
-        public Capsule(DrawingPoint p1, DrawingPoint p2, double rad, Color color)
+        public Capsule(DrawingPoint p1, DrawingPoint p2, double radi, Color color)
         {
             this.Point1 = p1;
             this.Point2 = p2;
             radiusUtilityPoint = new DrawingPoint(new Vector());
-            this.Radius = rad;
+            this.Radius = radi;
             this.color = color;
 
             this.Point1.PropertyChanged += Position_PropertyChanged;
@@ -168,12 +168,12 @@ namespace Rasterization.DrawingObjects
                 if (Dir * v2 >= 0)
                     radiusUtilityPoint.Point = Point2.Point + v2 * Radius;
                 else if (-Dir * v1 >= 0)
-                    radiusUtilityPoint.Point = Point2.Point + v1 * Radius;
+                    radiusUtilityPoint.Point = Point1.Point + v1 * Radius;
                 else
                 {
                     Vector orth = new Vector(-Dir.Y, Dir.X) * ((pos - Point2.Point) * new Vector(-Dir.Y, Dir.X));
                     orth.Normalize();
-                    radiusUtilityPoint.Point = (pos - Point2.Point) * ((pos - Point2.Point) * Dir) + orth * Radius;
+                    radiusUtilityPoint.Point = Point1.Point + Dir * ((pos - Point1.Point) * Dir) + orth * Radius;
                 }
                 return radiusUtilityPoint;
             }
