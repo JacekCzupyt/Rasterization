@@ -45,6 +45,7 @@ namespace Rasterization.DrawingObjects
             this.color = color;
             this.Position = new DrawingPoint(pos);
             this.radiusUtilityPoint = new DrawingPoint(point2);
+            updateRadius();
 
             this.Position.PropertyChanged += Position_PropertyChanged;
         }

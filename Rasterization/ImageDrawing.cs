@@ -21,6 +21,7 @@ namespace Rasterization
 
         private void BeginDrawingObject(MouseButtonEventArgs e)
         {
+            Vector mousePos = (Vector)e.GetPosition(MainImageContainer);
             switch (currentlyPressedButton.Name)
             {
                 case "DrawLineButon":
@@ -41,6 +42,12 @@ namespace Rasterization
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = poly.Points[1];
                     break;
+                case "DrawCapsuleButton":
+                    Capsule cap = new Capsule(mousePos, mousePos, 0, CurrentColor);
+                    currentlyDrawnObject = cap;
+                    DrawingObjects.Add(currentlyDrawnObject);
+                    currentlyDrawnPoint = cap.Point2;
+                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -48,19 +55,19 @@ namespace Rasterization
 
         private void ContinueDrawingObject(MouseButtonEventArgs e)
         {
+            Vector mousePos = (Vector)e.GetPosition(MainImageContainer);
             switch (currentlyPressedButton.Name)
             {
                 case "DrawCircleButton": //line and circle are exactly the same
                 case "DrawLineButon":
                     currentlyDrawnObject = null;
-                    currentlyDrawnPoint.Point = (Vector)e.GetPosition(MainImageContainer);
+                    currentlyDrawnPoint.Point = mousePos;
                     currentlyDrawnPoint = null;
                     currentState = UIState.PreparingToDraw;
                     UpdateMainImage();
                     break;
                 case "DrawPolygonButton":
                     Polygon poly = currentlyDrawnObject as Polygon;
-                    Vector mousePos = (Vector)e.GetPosition(MainImageContainer);
                     if (poly.Points.Count > 2 && poly.Points[0].dist(mousePos) < MaximumSelectDistance)
                     {
                         currentlyDrawnObject = null;
@@ -74,6 +81,23 @@ namespace Rasterization
                         currentlyDrawnPoint = poly.AddPoint(mousePos);
                     }
                     UpdateMainImage();
+                    break;
+                case "DrawCapsuleButton":
+                    Capsule cap = currentlyDrawnObject as Capsule;
+                    
+                    if (currentlyDrawnPoint == cap.Point2)
+                    {
+                        currentlyDrawnPoint.Point = mousePos;
+                        currentlyDrawnPoint = cap.radiusUtilityPoint;
+                    }
+                    else
+                    {
+                        currentlyDrawnObject = null;
+                        currentlyDrawnPoint.Point = mousePos;
+                        currentlyDrawnPoint = null;
+                        currentState = UIState.PreparingToDraw;
+                        UpdateMainImage();
+                    }
                     break;
                 default:
                     throw new NotImplementedException();
