@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="DrawingMouseControls.cs" />
     <Compile Include="DrawingObjects\AbstractDrawingObject.cs" />
+    <Compile Include="DrawingObjects\Capsule.cs" />
     <Compile Include="DrawingObjects\DrawingPoint.cs" />
     <Compile Include="DrawingObjects\FilledCircle.cs" />
     <Compile Include="DrawingObjects\IDrawingObject.cs" />
