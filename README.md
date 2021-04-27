@@ -33,6 +33,14 @@ Left click again to pick the radius, or right click to cancel.
 
 Circles do not have width.
 
+### Capsules
+
+Click the capsule button, then left click to pick the first point.
+
+Left click again to choose the second point, and then again to choose a size.
+
+Right click to cancel drawing. Capsules do not have width.
+
 ### Selecting and moving points
 
 When no shape button is pressed, left click to select a point. 
