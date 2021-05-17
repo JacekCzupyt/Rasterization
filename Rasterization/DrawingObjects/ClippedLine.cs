@@ -9,20 +9,20 @@ using System.Windows;
 
 namespace Rasterization.DrawingObjects
 {
-    class ClippedLine : IDrawingObject, ILine, IHasThickness
+    class ClippedLine : ILine, IHasThickness
     {
         public DrawingPoint Point1 { get; set; }
         public DrawingPoint Point2 { get; set; }
 
         public Color color { get => mainLine.color; set => mainLine.color = value; }
 
-        List<DrawingRectangle> Clips;
+        IEnumerable<DrawingRectangle> Clips;
         ThickLine mainLine, l1, l2;
         DrawingPoint cp1, cp2;
 
         public double Thickness { get { return mainLine.Thickness; } set { mainLine.Thickness = value; l1.Thickness = Thickness; l2.Thickness = Thickness; } }
 
-        public ClippedLine(Vector p1, Vector p2, double thick, Color color, List<DrawingRectangle> ClipRectangles)
+        public ClippedLine(Vector p1, Vector p2, double thick, Color color, IEnumerable<DrawingRectangle> ClipRectangles)
         {
             Clips = ClipRectangles;
             l1 = new ThickLine(p1, p1, thick, Color.Pink);
@@ -34,7 +34,7 @@ namespace Rasterization.DrawingObjects
             mainLine = new ThickLine(cp1, cp2, thick, color);
         }
 
-        public ClippedLine(DrawingPoint p1, DrawingPoint p2, double thick, Color color, List<DrawingRectangle> ClipRectangles)
+        public ClippedLine(DrawingPoint p1, DrawingPoint p2, double thick, Color color, IEnumerable<DrawingRectangle> ClipRectangles)
         {
             Clips = ClipRectangles;
             Point1 = p1;
@@ -100,12 +100,12 @@ namespace Rasterization.DrawingObjects
 
                     if ((outcodeOut & 1) != 0)//right
                     {
-                        p.Y = p1.Y + (p2.Y - p1.Y) * (clip.right - p1.Y) / (p2.Y - p1.Y);
+                        p.Y = p1.Y + (p2.Y - p1.Y) * (clip.right - p1.X) / (p2.X - p1.X);
                         p.X = clip.right;
                     }
                     else if ((outcodeOut & 2) != 0)//left
                     {
-                        p.Y = p1.Y + (p2.Y - p1.Y) * (clip.left - p1.Y) / (p2.Y - p1.Y);
+                        p.Y = p1.Y + (p2.Y - p1.Y) * (clip.left - p1.X) / (p2.X - p1.X);
                         p.X = clip.left;
                     }
                     else if ((outcodeOut & 4) != 0)//top
@@ -141,8 +141,8 @@ namespace Rasterization.DrawingObjects
             byte outcode = 0;
             outcode |= (p.X > clip.right) ? 1 : 0;
             outcode |= (p.X < clip.left) ? 2 : 0;
-            outcode |= (p.X > clip.up) ? 4 : 0;
-            outcode |= (p.X < clip.down) ? 8 : 0;
+            outcode |= (p.Y > clip.up) ? 4 : 0;
+            outcode |= (p.Y < clip.down) ? 8 : 0;
             return outcode;
         }
 

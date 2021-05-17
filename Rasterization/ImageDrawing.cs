@@ -5,12 +5,17 @@ using System.Drawing.Imaging;
 using System.Windows;
 using System.Windows.Input;
 using Rasterization.DrawingObjects;
+using System.Linq;
 
 namespace Rasterization
 {
     public partial class MainWindow : Window
     {
         List<IDrawingObject> DrawingObjects = new List<IDrawingObject>();
+        IEnumerable<DrawingRectangle> ClipRectangles { get
+            {
+                return DrawingObjects.ConvertAll<DrawingRectangle>(o => o as DrawingRectangle).Where(o => o != null);
+            } }
 
         IDrawingObject currentlyDrawnObject;
         DrawingPoint currentlyDrawnPoint;
@@ -25,7 +30,7 @@ namespace Rasterization
             switch (currentlyPressedButton.Name)
             {
                 case "DrawLineButon":
-                    ThickLine line = new ThickLine((Vector)e.GetPosition(MainImageContainer), (Vector)e.GetPosition(MainImageContainer), 2, CurrentColor);
+                    ILine line = new ClippedLine((Vector)e.GetPosition(MainImageContainer), (Vector)e.GetPosition(MainImageContainer), 2, CurrentColor, ClipRectangles);
                     currentlyDrawnObject = line;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = line.Point2;

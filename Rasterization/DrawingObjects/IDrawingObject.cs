@@ -23,12 +23,12 @@ namespace Rasterization.DrawingObjects
         Color color { get; set; }
     }
 
-    interface IHasThickness
+    interface IHasThickness : IDrawingObject
     {
         double Thickness { get; set; }
     }
 
-    interface ILine
+    interface ILine : IDrawingObject
     {
         DrawingPoint Point1 { get; set; }
         DrawingPoint Point2 { get; set; }
