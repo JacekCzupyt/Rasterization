@@ -89,6 +89,7 @@
     <Compile Include="DrawingObjects\MidpointCircle.cs" />
     <Compile Include="DrawingObjects\MidpointLine.cs" />
     <Compile Include="DrawingObjects\Polygon.cs" />
+    <Compile Include="DrawingObjects\DrawingRectangle.cs" />
     <Compile Include="DrawingObjects\ThickLine.cs" />
     <Compile Include="DrawingUI.cs" />
     <Compile Include="ImageDrawing.cs" />

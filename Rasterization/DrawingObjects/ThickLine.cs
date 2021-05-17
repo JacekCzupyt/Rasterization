@@ -17,7 +17,7 @@ namespace Rasterization.DrawingObjects
      */
 
     [Serializable]
-    class ThickLine : MidpointLine
+    class ThickLine : MidpointLine, IHasThickness
     {
         private FilledCircle brush;
         public double Thickness { get { return brush.Radius; } set { brush.Radius = value < 0 ? 0 : value; } }

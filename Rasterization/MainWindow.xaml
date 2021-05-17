@@ -31,6 +31,7 @@
                 <ToggleButton x:Name="DrawCircleButton" Content="Circle" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
                 <ToggleButton x:Name="DrawPolygonButton" Content="Polygon" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
                 <ToggleButton x:Name="DrawCapsuleButton" Content="Capsule" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
+                <ToggleButton x:Name="DrawRectangleButton" Content="Rectangle" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
 
                 <xctk:ColorPicker Name="ColorPalette" SelectedColorChanged="ColorPalette_SelectedColorChanged"/>
             </StackPanel>
