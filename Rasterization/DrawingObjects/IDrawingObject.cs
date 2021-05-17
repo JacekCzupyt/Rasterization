@@ -33,4 +33,6 @@ namespace Rasterization.DrawingObjects
         DrawingPoint Point1 { get; set; }
         DrawingPoint Point2 { get; set; }
     }
+
+    interface IThickLine : ILine, IHasThickness { }
 }

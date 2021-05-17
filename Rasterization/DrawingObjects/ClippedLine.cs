@@ -9,7 +9,8 @@ using System.Windows;
 
 namespace Rasterization.DrawingObjects
 {
-    class ClippedLine : ILine, IHasThickness
+    [Serializable]
+    class ClippedLine : IThickLine
     {
         public DrawingPoint Point1 { get; set; }
         public DrawingPoint Point2 { get; set; }
