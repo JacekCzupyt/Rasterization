@@ -51,28 +51,27 @@ namespace Rasterization.DrawingObjects
                         aet.Remove(k);
                 }
 
-                aet.OrderBy(e => e.x);
-
-                for(var i = aet.First; i != null; i=i.Next.Next)
+                for(var i = aet.OrderBy(e => e.x).GetEnumerator(); i.MoveNext();)
                 {
-                    for(int x = (int)Math.Ceiling(i.Value.x); x < (int)i.Next.Value.x; x++)
+                    var i1 = i.Current;
+                    i.MoveNext();
+                    var i2 = i.Current;
+                    for(int x = (int)Math.Ceiling(i1.x); x <= (int)i2.x; x++)
                     {
                         PutPixel(x, y, RgbValues, bmpData);
                     }
-                    aetElem iv = i.Value;
-                    iv.x += iv.mi;
-                    i.Value = iv;
+                }
 
-                    aetElem ivn = i.Next.Value;
-                    ivn.x += ivn.mi;
-                    i.Next.Value = ivn;
+                foreach(var e in aet)
+                {
+                    e.x += e.mi;
                 }
 
                 y++;
             }
         }
 
-        struct aetElem
+        class aetElem
         {
             public aetElem(DrawingPoint p1, DrawingPoint p2)
             {
