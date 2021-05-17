@@ -22,7 +22,7 @@ namespace Rasterization.DrawingObjects
             int Ymax = (int)Math.Round(Points.Select(p => p.Y).Max());
             int Ymin = (int)Math.Round(Points.Select(p => p.Y).Min());
 
-            List<LinkedList<aetElem>> et = new List<LinkedList<aetElem>>(Ymax - Ymin + 1);
+            List<LinkedList<aetElem>> et = new List<LinkedList<aetElem>>(new LinkedList<aetElem>[Ymax - Ymin + 1]);
             for (int i = 0; i < et.Count; i++)
                 et[i] = new LinkedList<aetElem>();
 
@@ -30,7 +30,7 @@ namespace Rasterization.DrawingObjects
             {
                 DrawingPoint p1 = Points[i], p2 = Points[(i + 1) % Points.Count];
                 aetElem elem = new aetElem(p1, p2);
-                et[(int)Math.Round(Math.Min(p1.Y, p2.Y))].AddLast(elem);
+                et[(int)Math.Round(Math.Min(p1.Y, p2.Y))-Ymin].AddLast(elem);
             }
 
             LinkedList<aetElem> aet = new LinkedList<aetElem>();
@@ -38,6 +38,10 @@ namespace Rasterization.DrawingObjects
             int y = Ymin;
             while (y <= Ymax)
             {
+                
+                foreach (var e in et[y - Ymin])
+                    aet.AddLast(e);
+
                 for (var i = aet.First; i != null;)
                 {
                     bool rm = i.Value.Ymax == y;
@@ -46,8 +50,6 @@ namespace Rasterization.DrawingObjects
                     if (rm)
                         aet.Remove(k);
                 }
-                foreach (var e in et[y - Ymin])
-                    aet.AddLast(e);
 
                 aet.OrderBy(e => e.x);
 
@@ -65,6 +67,8 @@ namespace Rasterization.DrawingObjects
                     ivn.x += ivn.mi;
                     i.Next.Value = ivn;
                 }
+
+                y++;
             }
         }
 
