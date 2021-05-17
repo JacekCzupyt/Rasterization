@@ -48,6 +48,12 @@ namespace Rasterization
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = cap.Point2;
                     break;
+                case "DrawRectangleButton":
+                    DrawingRectangle rec = new DrawingRectangle(CurrentColor, 2, mousePos, mousePos);
+                    currentlyDrawnObject = rec;
+                    DrawingObjects.Add(currentlyDrawnObject);
+                    currentlyDrawnPoint = rec.Points[2];
+                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -98,6 +104,13 @@ namespace Rasterization
                         currentState = UIState.PreparingToDraw;
                         UpdateMainImage();
                     }
+                    break;
+                case "DrawRectangleButton":
+                    currentlyDrawnObject = null;
+                    currentlyDrawnPoint.Point = mousePos;
+                    currentlyDrawnPoint = null;
+                    currentState = UIState.PreparingToDraw;
+                    UpdateMainImage();
                     break;
                 default:
                     throw new NotImplementedException();

@@ -10,14 +10,14 @@ using System.Windows;
 namespace Rasterization.DrawingObjects
 {
     [Serializable]
-    class Rectangle : AbstractDrawingObject
+    class DrawingRectangle : AbstractDrawingObject
     {
         public double Thickness { get { return Edges[0].Thickness; } set { Edges.ForEach(e => e.Thickness = value); } }
 
-        List<DrawingPoint> Points = new List<DrawingPoint>();
+        public List<DrawingPoint> Points = new List<DrawingPoint>();
         List<ThickLine> Edges = new List<ThickLine>();
 
-        public Rectangle(Color color, double thick, Vector p0, Vector p1)
+        public DrawingRectangle(Color color, double thick, Vector p0, Vector p1)
         {
             this.color = color;
 
@@ -32,7 +32,7 @@ namespace Rasterization.DrawingObjects
             InitializeEdges(thick);
         }
 
-        public Rectangle(Color color, double thick, DrawingPoint p0, DrawingPoint p1)
+        public DrawingRectangle(Color color, double thick, DrawingPoint p0, DrawingPoint p1)
         {
             this.color = color;
 
@@ -55,9 +55,9 @@ namespace Rasterization.DrawingObjects
             DrawingPoint p = sender as DrawingPoint;
             int index = Points.IndexOf(p);
             int d = index % 2 == 0 ? 1 : -1;
-            if (Points[(index + d + Points.Count) % Points.Count].X == p.X)
+            if (Points[(index + d + Points.Count) % Points.Count].X != p.X)
                 Points[(index + d + Points.Count) % Points.Count].X = p.X;
-            if (Points[(index - d + Points.Count) % Points.Count].Y == p.Y)
+            if (Points[(index - d + Points.Count) % Points.Count].Y != p.Y)
                 Points[(index - d + Points.Count) % Points.Count].Y = p.Y;
         }
 
@@ -77,7 +77,7 @@ namespace Rasterization.DrawingObjects
 
         public override IEnumerable<DrawingPoint> GetTranslationPoints()
         {
-            return Points;
+            return new List<DrawingPoint>() { Points[0], Points[2] };
         }
 
         public override DrawingPoint GetClosestPoint(Vector pos)

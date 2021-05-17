@@ -36,5 +36,10 @@ namespace Rasterization.DrawingObjects
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+        public override string ToString()
+        {
+            return Point.ToString();
+        }
     }
 }
