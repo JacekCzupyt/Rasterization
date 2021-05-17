@@ -34,6 +34,21 @@ namespace Rasterization.DrawingObjects
             InitializeEdges(thick);
         }
 
+        protected Polygon(Color color, Vector p0, params Vector[] list)
+        {
+            this.color = color;
+
+            Points.Add(new DrawingPoint(p0));
+            Points.AddRange(list.Select(p => new DrawingPoint(p)));
+        }
+
+        protected Polygon(Color color, DrawingPoint p0, params DrawingPoint[] list)
+        {
+            this.color = color;
+            Points.Add(p0);
+            Points.AddRange(list);
+        }
+
         protected virtual void InitializeEdges(double thick)
         {
             for (int i = 0; i < Points.Count; i++)

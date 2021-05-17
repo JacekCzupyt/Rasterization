@@ -12,8 +12,9 @@ namespace Rasterization.DrawingObjects
     [Serializable]
     class ClippedLine : IThickLine
     {
-        public DrawingPoint Point1 { get; set; }
-        public DrawingPoint Point2 { get; set; }
+        DrawingPoint point1, point2;
+        public DrawingPoint Point1 { get { return point1; } set { point1 = value; if(l1 != null) l1.Point1 = value; } }
+        public DrawingPoint Point2 { get { return point2; } set { point2 = value; if (l2 != null) l2.Point1 = value; } }
 
         public Color color { get => mainLine.color; set => mainLine.color = value; }
 

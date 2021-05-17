@@ -11,16 +11,18 @@ namespace Rasterization.DrawingObjects
     {
         IEnumerable<DrawingRectangle> Clips;
 
-        public ClippedPolygon(Color color, double thick, Vector p0, IEnumerable<DrawingRectangle> Clips) :
-            base(color, thick, p0)
+        public ClippedPolygon(Color color, double thick, IEnumerable<DrawingRectangle> Clips, Vector p0, params Vector[] list) :
+            base(color, p0, list)
         {
             this.Clips = Clips;
+            InitializeEdges(thick);
         }
 
-        public ClippedPolygon(Color color, double thick, DrawingPoint p0, IEnumerable<DrawingRectangle> Clips) :
-            base(color, thick, p0)
+        public ClippedPolygon(Color color, double thick, IEnumerable<DrawingRectangle> Clips, DrawingPoint p0, params DrawingPoint[] list) :
+            base(color, p0, list)
         {
             this.Clips = Clips;
+            InitializeEdges(thick);
         }
 
         protected override void InitializeEdges(double thick)
