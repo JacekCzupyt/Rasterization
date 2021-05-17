@@ -7,9 +7,10 @@ using System.Windows;
 namespace Rasterization.DrawingObjects
 {
     [Serializable]
-    class MidpointLine : AbstractDrawingObject
+    class MidpointLine : AbstractDrawingObject, ILine
     {
-        public DrawingPoint Point1, Point2;
+        public DrawingPoint Point1 { get; set; }
+        public DrawingPoint Point2 { get; set; }
 
         public MidpointLine(Vector p1, Vector p2, Color color)
         {

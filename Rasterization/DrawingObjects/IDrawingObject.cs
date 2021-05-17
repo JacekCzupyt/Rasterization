@@ -15,7 +15,7 @@ namespace Rasterization.DrawingObjects
 
         /// Returns the point belonging to the object closest to a given position
         DrawingPoint GetClosestPoint(Vector pos);
-        
+
         /// Returns all points belonging to the object
         IEnumerable<DrawingPoint> GetTranslationPoints();
 
@@ -26,5 +26,11 @@ namespace Rasterization.DrawingObjects
     interface IHasThickness
     {
         double Thickness { get; set; }
+    }
+
+    interface ILine
+    {
+        DrawingPoint Point1 { get; set; }
+        DrawingPoint Point2 { get; set; }
     }
 }
