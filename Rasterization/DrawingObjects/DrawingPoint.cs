@@ -27,8 +27,8 @@ namespace Rasterization.DrawingObjects
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public double X { get { return Point.X; }}
-        public double Y { get { return Point.Y; }}
+        public double X { get { return Point.X; } set { Point = new Vector(value, Point.Y); } }
+        public double Y { get { return Point.Y; } set { Point = new Vector(Point.X, value); } }
 
         public double dist(Vector pos) { return (pos - Point).Length; }
 
