@@ -8,7 +8,7 @@ using System.Windows;
 namespace Rasterization.DrawingObjects
 {
     [Serializable]
-    class Polygon : AbstractDrawingObject
+    class Polygon : AbstractDrawingObject, IHasThickness
     {
         public double Thickness { get { return Edges[0].Thickness; } set { Edges.ForEach(e => e.Thickness = value); } }
 

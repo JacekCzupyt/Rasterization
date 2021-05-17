@@ -10,7 +10,7 @@ using System.Windows;
 namespace Rasterization.DrawingObjects
 {
     [Serializable]
-    class DrawingRectangle : AbstractDrawingObject
+    class DrawingRectangle : AbstractDrawingObject, IHasThickness
     {
         public double Thickness { get { return Edges[0].Thickness; } set { Edges.ForEach(e => e.Thickness = value); } }
 

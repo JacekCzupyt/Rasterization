@@ -202,17 +202,10 @@ namespace Rasterization
 
         private void ChangeThickness(IDrawingObject drawingObject, MouseWheelEventArgs e)
         {
-            if (drawingObject is ThickLine)
+            if (drawingObject is IHasThickness)
             {
-                ThickLine tl = drawingObject as ThickLine;
+                IHasThickness tl = drawingObject as IHasThickness;
                 tl.Thickness += e.Delta / 120;
-                
-            }
-            if (drawingObject is Polygon)
-            {
-                Polygon poly = drawingObject as Polygon;
-                poly.Thickness += e.Delta / 120;
-                
             }
         }
     }
