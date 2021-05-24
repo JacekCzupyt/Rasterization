@@ -10,7 +10,9 @@ namespace Rasterization.DrawingObjects
     [Serializable]
     abstract class AbstractDrawingObject : IDrawingObject
     {
-
+        public bool useTexture { get; set; } = false;
+        public TextureWrapper texture { get; set; } = null;
+        protected DrawingPoint textureOrigin { get; set; }
         public virtual Color color { get; set; }
         public abstract void Draw(byte[] RgbValues, BitmapData bmpData, bool Antialiesing);
         public abstract IEnumerable<DrawingPoint> GetTranslationPoints();
@@ -40,12 +42,17 @@ namespace Rasterization.DrawingObjects
 
         protected virtual void PutPixel(int x, int y, byte[] RgbValues, BitmapData bmpData, double modifier = 1)
         {
+            Color c;
+            if(useTexture && texture != null)
+                c = texture.GetPixel(x, y);
+            else
+                c = color;
             if(IsInBounds((x, y), bmpData.Width, bmpData.Height))
             {
                 long i = Flatten((x, y), bmpData.Width) * bmpData.Stride / bmpData.Width;
-                RgbValues[i] = (byte)(color.B * modifier + RgbValues[i] * (1 - modifier));
-                RgbValues[i + 1] = (byte)(color.G * modifier + RgbValues[i+1] * (1 - modifier));
-                RgbValues[i + 2] = (byte)(color.R * modifier + RgbValues[i+2] * (1 - modifier));
+                RgbValues[i] = (byte)(c.B * modifier + RgbValues[i] * (1 - modifier));
+                RgbValues[i + 1] = (byte)(c.G * modifier + RgbValues[i+1] * (1 - modifier));
+                RgbValues[i + 2] = (byte)(c.R * modifier + RgbValues[i+2] * (1 - modifier));
             }
         }
 

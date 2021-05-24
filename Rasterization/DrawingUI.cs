@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Collections.Generic;
-using System.Windows.Media;
 using Rasterization.DrawingObjects;
+using Microsoft.Win32;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace Rasterization
 {
@@ -50,11 +51,11 @@ namespace Rasterization
             UpdateMainImage();
         }
 
-        private void ColorPalette_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        private void ColorPalette_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<System.Windows.Media.Color?> e)
         {
             if(e.NewValue != null)
             {
-                Color c = e.NewValue.Value;
+                System.Windows.Media.Color c = e.NewValue.Value;
                 CurrentColor = System.Drawing.Color.FromArgb(c.A, c.R, c.G, c.B);
     
                 if (currentState == UIState.SelectingPoints || currentState == UIState.MovingExistingPoints)
@@ -104,6 +105,33 @@ namespace Rasterization
                 }
             }
             UpdateMainImage();
+        }
+
+        private void TextureSelection_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string ImagePath = openFileDialog.FileName;
+                try
+                {
+                    Bitmap texturebmp = (Bitmap)Image.FromFile(ImagePath);
+                    Rectangle rect = new Rectangle(0, 0, texturebmp.Width, texturebmp.Height);
+                    BitmapData bmpData = texturebmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, texturebmp.PixelFormat);
+                    TextureWrapper texture = new TextureWrapper(bmpData);
+                    foreach (var obj in GetSelectedObjects())
+                    {
+                        obj.useTexture = true;
+                        obj.texture = texture;
+                    }
+                    UpdateMainImage();
+                }
+                catch (System.NotSupportedException)
+                {
+                    throw new System.NotSupportedException();
+                }
+            }
         }
     }
 }
