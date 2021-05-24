@@ -11,13 +11,23 @@ using System.Linq;
 namespace Rasterization.DrawingObjects
 {
     [Serializable]
-    class FilledPolygon : Polygon
+    class FilledPolygon : ClippedPolygon
     {
-        public FilledPolygon(Color color, double thick, Vector p0, params Vector[] list) : base(color, thick, p0, list) { }
+        public FilledPolygon(Color color, double thick, IEnumerable<DrawingRectangle> Clips, Vector p0, params Vector[] list) : base(color, thick, Clips, p0, list)
+        {
+            Fill = true;
+        }
+        
+        public bool Fill { get; set; }
 
         public override void Draw(byte[] RgbValues, BitmapData bmpData, bool Antialiesing)
         {
             base.Draw(RgbValues, bmpData, Antialiesing);
+
+            if (!Fill)
+                return;
+
+            ClippedLine.Clip clip = Clips.Select(rec => new ClippedLine.Clip(rec)).Aggregate((a, b) => a * b);
 
             int Ymax = (int)Math.Round(Points.Select(p => p.Y).Max());
             int Ymin = (int)Math.Round(Points.Select(p => p.Y).Min());
@@ -36,7 +46,7 @@ namespace Rasterization.DrawingObjects
             LinkedList<aetElem> aet = new LinkedList<aetElem>();
 
             int y = Ymin;
-            while (y <= Ymax)
+            while (y <= Ymax && y<=clip.up)
             {
                 
                 foreach (var e in et[y - Ymin])
@@ -51,14 +61,19 @@ namespace Rasterization.DrawingObjects
                         aet.Remove(k);
                 }
 
-                for(var i = aet.OrderBy(e => e.x).GetEnumerator(); i.MoveNext();)
+                if (y >= clip.down)
                 {
-                    var i1 = i.Current;
-                    i.MoveNext();
-                    var i2 = i.Current;
-                    for(int x = (int)Math.Ceiling(i1.x); x <= (int)i2.x; x++)
+                    for (var i = aet.OrderBy(e => e.x).GetEnumerator(); i.MoveNext();)
                     {
-                        PutPixel(x, y, RgbValues, bmpData);
+                        var i1 = i.Current;
+                        i.MoveNext();
+                        var i2 = i.Current;
+                        for (int x = Math.Max((int)Math.Ceiling(i1.x), (int)Math.Ceiling(clip.left));
+                            x <= Math.Min((int)i2.x, (int)clip.right); 
+                            x++)
+                        {
+                            PutPixel(x, y, RgbValues, bmpData);
+                        }
                     }
                 }
 

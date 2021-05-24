@@ -42,16 +42,10 @@ namespace Rasterization
                     currentlyDrawnPoint = circle.radiusUtilityPoint;
                     break;
                 case "DrawPolygonButton":
-                    Polygon poly = new ClippedPolygon(CurrentColor, 2, ClipRectangles, (Vector)e.GetPosition(MainImageContainer), (Vector)e.GetPosition(MainImageContainer));
+                    Polygon poly = new FilledPolygon(CurrentColor, 2, ClipRectangles, (Vector)e.GetPosition(MainImageContainer), (Vector)e.GetPosition(MainImageContainer));
                     currentlyDrawnObject = poly;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = poly.Points[1];
-                    break;
-                case "DrawFilledPolygonButton":
-                    Polygon fpoly = new FilledPolygon(CurrentColor, 0, (Vector)e.GetPosition(MainImageContainer), (Vector)e.GetPosition(MainImageContainer));
-                    currentlyDrawnObject = fpoly;
-                    DrawingObjects.Add(currentlyDrawnObject);
-                    currentlyDrawnPoint = fpoly.Points[1];
                     break;
                 case "DrawCapsuleButton":
                     Capsule cap = new Capsule(mousePos, mousePos, 0, CurrentColor);
@@ -83,7 +77,6 @@ namespace Rasterization
                     currentState = UIState.PreparingToDraw;
                     UpdateMainImage();
                     break;
-                case "DrawFilledPolygonButton":
                 case "DrawPolygonButton":
                     Polygon poly = currentlyDrawnObject as Polygon;
                     if (poly.Points.Count > 2 && poly.Points[0].dist(mousePos) < MaximumSelectDistance)
