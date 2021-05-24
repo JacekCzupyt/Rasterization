@@ -65,7 +65,7 @@ namespace Rasterization.DrawingObjects
                 mainLine.Draw(RgbValues, bmpData, Antialiesing);
         }
 
-        struct Clip
+        public struct Clip
         {
             public double right, left, up, down;
             public Clip(DrawingRectangle rec)
@@ -75,6 +75,16 @@ namespace Rasterization.DrawingObjects
                 up = rec.Points.Aggregate((p1, p2) => p1.Y > p2.Y ? p1 : p2).Y;
                 down = rec.Points.Aggregate((p1, p2) => p1.Y < p2.Y ? p1 : p2).Y;
             }
+            public static Clip operator *(Clip a, Clip b)
+            {
+                Clip c = new Clip();
+                c.up = Math.Min(a.up, b.up);
+                c.down = Math.Max(a.down, b.down);
+                c.right = Math.Min(a.right, b.right);
+                c.left = Math.Max(a.left, b.left);
+                return c;
+            }
+                
         }
 
         bool ClipToRectangle(DrawingPoint p1, DrawingPoint p2, Clip clip)

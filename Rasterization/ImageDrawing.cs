@@ -42,7 +42,7 @@ namespace Rasterization
                     currentlyDrawnPoint = circle.radiusUtilityPoint;
                     break;
                 case "DrawPolygonButton":
-                    Polygon poly = new ClippedPolygon(CurrentColor, 2, ClipRectangles, (Vector)e.GetPosition(MainImageContainer), (Vector)e.GetPosition(MainImageContainer));
+                    Polygon poly = new FilledPolygon(CurrentColor, 2, ClipRectangles, (Vector)e.GetPosition(MainImageContainer), (Vector)e.GetPosition(MainImageContainer));
                     currentlyDrawnObject = poly;
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = poly.Points[1];

@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Collections.Generic;
 using System.Windows.Media;
+using Rasterization.DrawingObjects;
 
 namespace Rasterization
 {
@@ -89,7 +91,19 @@ namespace Rasterization
                         break;
                 }
             }
-            
+        }
+
+        private void FillButton_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(var obj in GetSelectedObjects())
+            {
+                if(obj is FilledPolygon)
+                {
+                    var poly = obj as FilledPolygon;
+                    poly.Fill = !poly.Fill;
+                }
+            }
+            UpdateMainImage();
         }
     }
 }

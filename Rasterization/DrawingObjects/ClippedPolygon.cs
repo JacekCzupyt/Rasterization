@@ -9,7 +9,7 @@ namespace Rasterization.DrawingObjects
     [Serializable]
     class ClippedPolygon : Polygon
     {
-        IEnumerable<DrawingRectangle> Clips;
+        protected IEnumerable<DrawingRectangle> Clips;
 
         public ClippedPolygon(Color color, double thick, IEnumerable<DrawingRectangle> Clips, Vector p0, params Vector[] list) :
             base(color, p0, list)
