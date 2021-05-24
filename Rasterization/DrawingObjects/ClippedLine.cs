@@ -21,13 +21,13 @@ namespace Rasterization.DrawingObjects
 
         public Color color { get => mainLine.color; set => mainLine.color = value; }
 
-        IEnumerable<DrawingRectangle> Clips;
+        List<DrawingRectangle> Clips;
         ThickLine mainLine, l1, l2;
         DrawingPoint cp1, cp2;
 
         public double Thickness { get { return mainLine.Thickness; } set { mainLine.Thickness = value; l1.Thickness = Thickness; l2.Thickness = Thickness; } }
 
-        public ClippedLine(Vector p1, Vector p2, double thick, Color color, IEnumerable<DrawingRectangle> ClipRectangles)
+        public ClippedLine(Vector p1, Vector p2, double thick, Color color, List<DrawingRectangle> ClipRectangles)
         {
             Clips = ClipRectangles;
             l1 = new ThickLine(p1, p1, thick, Color.Pink);
@@ -39,7 +39,7 @@ namespace Rasterization.DrawingObjects
             mainLine = new ThickLine(cp1, cp2, thick, color);
         }
 
-        public ClippedLine(DrawingPoint p1, DrawingPoint p2, double thick, Color color, IEnumerable<DrawingRectangle> ClipRectangles)
+        public ClippedLine(DrawingPoint p1, DrawingPoint p2, double thick, Color color, List<DrawingRectangle> ClipRectangles)
         {
             Clips = ClipRectangles;
             Point1 = p1;

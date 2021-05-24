@@ -12,7 +12,7 @@ namespace Rasterization.DrawingObjects
     {
         public bool useTexture { get; set; } = false;
         public TextureWrapper texture { get; set; } = null;
-        protected DrawingPoint textureOrigin { get; set; }
+        protected virtual DrawingPoint textureOrigin { get => null;}
         public virtual Color color { get; set; }
         public abstract void Draw(byte[] RgbValues, BitmapData bmpData, bool Antialiesing);
         public abstract IEnumerable<DrawingPoint> GetTranslationPoints();
@@ -44,7 +44,7 @@ namespace Rasterization.DrawingObjects
         {
             Color c;
             if(useTexture && texture != null)
-                c = texture.GetPixel(x, y);
+                c = texture.GetPixel(x, y, textureOrigin);
             else
                 c = color;
             if(IsInBounds((x, y), bmpData.Width, bmpData.Height))

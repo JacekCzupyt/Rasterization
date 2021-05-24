@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Rasterization
 {
+    [Serializable]
     class TextureWrapper
     {
         static int MathMod(int a, int b)
@@ -16,12 +17,23 @@ namespace Rasterization
             return (Math.Abs(a * b) + a) % b;
         }
 
+        Bitmap bmp;
+        [NonSerialized]
         BitmapData bmpData;
+        [NonSerialized]
         byte[] rgbValues;
 
-        public TextureWrapper(BitmapData _bmpData)
+        public TextureWrapper(Bitmap _bmp)
         {
-            bmpData = _bmpData;
+            bmp = _bmp;
+            extract();
+        }
+
+        private void extract()
+        {
+            Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+            bmpData =
+                bmp.LockBits(rect, ImageLockMode.ReadOnly, bmp.PixelFormat);
             IntPtr ptr = bmpData.Scan0;
             int bytes = Math.Abs(bmpData.Stride) * bmpData.Height;
             rgbValues = new byte[bytes];
@@ -35,6 +47,8 @@ namespace Rasterization
 
         public Color GetPixel(int x, int y, DrawingPoint p = null)
         {
+            if (bmpData == null)
+                extract();
             if (p != null)
             {
                 x -= (int)p.X;

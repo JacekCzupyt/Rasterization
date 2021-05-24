@@ -12,9 +12,9 @@ namespace Rasterization
     public partial class MainWindow : Window
     {
         List<IDrawingObject> DrawingObjects = new List<IDrawingObject>();
-        IEnumerable<DrawingRectangle> ClipRectangles { get
+        List<DrawingRectangle> ClipRectangles { get
             {
-                return DrawingObjects.ConvertAll<DrawingRectangle>(o => o as DrawingRectangle).Where(o => o != null);
+                return (DrawingObjects.ConvertAll<DrawingRectangle>(o => o as DrawingRectangle).Where(o => o != null)).ToList();
             } }
 
         IDrawingObject currentlyDrawnObject;

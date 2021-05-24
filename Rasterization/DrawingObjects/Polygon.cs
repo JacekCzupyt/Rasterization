@@ -10,6 +10,7 @@ namespace Rasterization.DrawingObjects
     [Serializable]
     class Polygon : AbstractDrawingObject, IHasThickness
     {
+        protected override DrawingPoint textureOrigin { get => Points[0]; }
         public double Thickness { get { return Edges[0].Thickness; } set { Edges.ForEach(e => e.Thickness = value); } }
 
         public List<DrawingPoint> Points = new List<DrawingPoint>();

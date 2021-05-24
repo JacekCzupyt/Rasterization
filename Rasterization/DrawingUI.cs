@@ -117,9 +117,7 @@ namespace Rasterization
                 try
                 {
                     Bitmap texturebmp = (Bitmap)Image.FromFile(ImagePath);
-                    Rectangle rect = new Rectangle(0, 0, texturebmp.Width, texturebmp.Height);
-                    BitmapData bmpData = texturebmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, texturebmp.PixelFormat);
-                    TextureWrapper texture = new TextureWrapper(bmpData);
+                    TextureWrapper texture = new TextureWrapper(texturebmp);
                     foreach (var obj in GetSelectedObjects())
                     {
                         obj.useTexture = true;

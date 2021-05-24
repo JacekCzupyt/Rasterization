@@ -9,16 +9,16 @@ namespace Rasterization.DrawingObjects
     [Serializable]
     class ClippedPolygon : Polygon
     {
-        protected IEnumerable<DrawingRectangle> Clips;
+        protected List<DrawingRectangle> Clips;
 
-        public ClippedPolygon(Color color, double thick, IEnumerable<DrawingRectangle> Clips, Vector p0, params Vector[] list) :
+        public ClippedPolygon(Color color, double thick, List<DrawingRectangle> Clips, Vector p0, params Vector[] list) :
             base(color, p0, list)
         {
             this.Clips = Clips;
             InitializeEdges(thick);
         }
 
-        public ClippedPolygon(Color color, double thick, IEnumerable<DrawingRectangle> Clips, DrawingPoint p0, params DrawingPoint[] list) :
+        public ClippedPolygon(Color color, double thick, List<DrawingRectangle> Clips, DrawingPoint p0, params DrawingPoint[] list) :
             base(color, p0, list)
         {
             this.Clips = Clips;
