@@ -27,7 +27,16 @@ namespace Rasterization.DrawingObjects
             if (!Fill)
                 return;
 
-            ClippedLine.Clip clip = Clips.Select(rec => new ClippedLine.Clip(rec)).Aggregate((a, b) => a * b);
+            ClippedLine.Clip clip;
+
+            if (Clips == null || Clips.Count() == 0)
+                clip = new ClippedLine.Clip() {
+                    down = float.NegativeInfinity,
+                    up = float.PositiveInfinity,
+                    left = float.NegativeInfinity,
+                    right = float.PositiveInfinity };
+            else
+                clip = Clips.Select(rec => new ClippedLine.Clip(rec)).Aggregate((a, b) => a * b);
 
             int Ymax = (int)Math.Round(Points.Select(p => p.Y).Max());
             int Ymin = (int)Math.Round(Points.Select(p => p.Y).Min());
