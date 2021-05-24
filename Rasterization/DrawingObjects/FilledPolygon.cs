@@ -6,14 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Linq;
 
 namespace Rasterization.DrawingObjects
 {
     [Serializable]
     class FilledPolygon : ClippedPolygon
     {
-        public FilledPolygon(Color color, double thick, IEnumerable<DrawingRectangle> Clips, Vector p0, params Vector[] list) : base(color, thick, Clips, p0, list)
+        public FilledPolygon(Color color, double thick, List<DrawingRectangle> Clips, Vector p0, params Vector[] list) : base(color, thick, Clips, p0, list)
         {
             Fill = true;
         }

@@ -12,19 +12,22 @@ namespace Rasterization.DrawingObjects
     [Serializable]
     class ClippedLine : IThickLine
     {
+        public bool useTexture { get => mainLine.useTexture; set => mainLine.useTexture = value; }
+        public TextureWrapper texture { get => mainLine.texture; set => mainLine.texture=value; }
+
         DrawingPoint point1, point2;
         public DrawingPoint Point1 { get { return point1; } set { point1 = value; if(l1 != null) l1.Point1 = value; } }
         public DrawingPoint Point2 { get { return point2; } set { point2 = value; if (l2 != null) l2.Point1 = value; } }
 
         public Color color { get => mainLine.color; set => mainLine.color = value; }
 
-        IEnumerable<DrawingRectangle> Clips;
+        List<DrawingRectangle> Clips;
         ThickLine mainLine, l1, l2;
         DrawingPoint cp1, cp2;
 
         public double Thickness { get { return mainLine.Thickness; } set { mainLine.Thickness = value; l1.Thickness = Thickness; l2.Thickness = Thickness; } }
 
-        public ClippedLine(Vector p1, Vector p2, double thick, Color color, IEnumerable<DrawingRectangle> ClipRectangles)
+        public ClippedLine(Vector p1, Vector p2, double thick, Color color, List<DrawingRectangle> ClipRectangles)
         {
             Clips = ClipRectangles;
             l1 = new ThickLine(p1, p1, thick, Color.Pink);
@@ -36,7 +39,7 @@ namespace Rasterization.DrawingObjects
             mainLine = new ThickLine(cp1, cp2, thick, color);
         }
 
-        public ClippedLine(DrawingPoint p1, DrawingPoint p2, double thick, Color color, IEnumerable<DrawingRectangle> ClipRectangles)
+        public ClippedLine(DrawingPoint p1, DrawingPoint p2, double thick, Color color, List<DrawingRectangle> ClipRectangles)
         {
             Clips = ClipRectangles;
             Point1 = p1;

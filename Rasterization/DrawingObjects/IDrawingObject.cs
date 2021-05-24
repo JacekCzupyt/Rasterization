@@ -21,6 +21,10 @@ namespace Rasterization.DrawingObjects
 
         /// Color of the object
         Color color { get; set; }
+
+        bool useTexture { get; set; }
+
+        TextureWrapper texture { get; set; }
     }
 
     interface IHasThickness : IDrawingObject

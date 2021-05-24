@@ -34,6 +34,8 @@
                 <ToggleButton x:Name="DrawRectangleButton" Content="Rectangle" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
 
                 <xctk:ColorPicker Name="ColorPalette" SelectedColorChanged="ColorPalette_SelectedColorChanged"/>
+                <Button x:Name="TextureSelection" Content="Texture" Width="auto" Padding="5px" Click="TextureSelection_Click"/>
+
                 <Button x:Name="FillButton" Content="Fill" Width="auto" Padding="5px" Margin="20 0 0 0" Click="FillButton_Click"/>
             </StackPanel>
 
