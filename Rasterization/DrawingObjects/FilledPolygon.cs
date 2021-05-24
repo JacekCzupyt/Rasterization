@@ -31,10 +31,10 @@ namespace Rasterization.DrawingObjects
 
             if (Clips == null || Clips.Count() == 0)
                 clip = new ClippedLine.Clip() {
-                    down = float.NegativeInfinity,
-                    up = float.PositiveInfinity,
-                    left = float.NegativeInfinity,
-                    right = float.PositiveInfinity };
+                    down = int.MinValue,
+                    up = int.MaxValue,
+                    left = int.MinValue,
+                    right = int.MaxValue };
             else
                 clip = Clips.Select(rec => new ClippedLine.Clip(rec)).Aggregate((a, b) => a * b);
 

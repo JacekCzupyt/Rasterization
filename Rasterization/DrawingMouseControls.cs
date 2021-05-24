@@ -180,6 +180,11 @@ namespace Rasterization
             currentState = selectedPoints.Count > 0 ? UIState.MovingExistingPoints : UIState.Nothing;
         }
 
+        private IEnumerable<IDrawingObject> GetSelectedObjects()
+        {
+            return DrawingObjects.Where(shape => shape.GetTranslationPoints().Intersect(selectedPoints.Keys).Any());
+        }
+
         private void MainImageContainer_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             switch (currentState)
@@ -190,7 +195,7 @@ namespace Rasterization
                     break;
                 case UIState.MovingExistingPoints:
                 case UIState.SelectingPoints:
-                    var SelectedObjects = DrawingObjects.Where(shape => shape.GetTranslationPoints().Intersect(selectedPoints.Keys).Any());
+                    var SelectedObjects = GetSelectedObjects();
                     foreach (var s in SelectedObjects)
                     {
                         ChangeThickness(s, e);

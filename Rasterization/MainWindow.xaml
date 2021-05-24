@@ -30,11 +30,11 @@
                 <ToggleButton x:Name="DrawLineButon" Content="Line" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
                 <ToggleButton x:Name="DrawCircleButton" Content="Circle" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
                 <ToggleButton x:Name="DrawPolygonButton" Content="Polygon" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
-                <ToggleButton x:Name="DrawFilledPolygonButton" Content="Filled Polygon" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
                 <ToggleButton x:Name="DrawCapsuleButton" Content="Capsule" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
                 <ToggleButton x:Name="DrawRectangleButton" Content="Rectangle" Width="auto" Padding="5px" Click="DrawingButtonClick"/>
 
                 <xctk:ColorPicker Name="ColorPalette" SelectedColorChanged="ColorPalette_SelectedColorChanged"/>
+                <Button x:Name="FillButton" Content="Fill" Width="auto" Padding="5px" Margin="20 0 0 0" Click="FillButton_Click"/>
             </StackPanel>
 
             <Rectangle x:Name="MainImageContainer" Stretch="Fill" Grid.Row="1" 
