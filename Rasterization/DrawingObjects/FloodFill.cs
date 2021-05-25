@@ -10,14 +10,16 @@ namespace Rasterization.DrawingObjects
     {
         DrawingPoint point;
 
-        public FloodFill(DrawingPoint p)
+        public FloodFill(DrawingPoint p, Color c)
         {
             point = p;
+            color = c;
         }
 
-        public FloodFill(Vector p)
+        public FloodFill(Vector p, Color c)
         {
             point = new DrawingPoint(p);
+            color = c;
         }
 
         public override void Draw(byte[] RgbValues, BitmapData bmpData, bool Antialiesing)
