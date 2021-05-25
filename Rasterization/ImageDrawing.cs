@@ -59,6 +59,11 @@ namespace Rasterization
                     DrawingObjects.Add(currentlyDrawnObject);
                     currentlyDrawnPoint = rec.Points[2];
                     break;
+                case "FloodFillButton":
+                    FloodFill fill = new FloodFill(mousePos, CurrentColor);
+                    DrawingObjects.Add(fill);
+                    currentState = UIState.PreparingToDraw;
+                    break;
                 default:
                     throw new NotImplementedException();
             }
