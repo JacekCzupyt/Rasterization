@@ -6,6 +6,7 @@ using System.Windows;
 
 namespace Rasterization.DrawingObjects
 {
+    [Serializable]
     class FloodFill : AbstractDrawingObject
     {
         DrawingPoint point;
@@ -32,16 +33,19 @@ namespace Rasterization.DrawingObjects
             if (prevColor == color)
                 return;
             PutPixel(origin.Item1, origin.Item2, RgbValues, bmpData);
-            for ((int, int) p = q.Dequeue(); q.Count > 0; p = q.Dequeue())
+            while(q.Count > 0) 
             {
+                (int, int) p = q.Dequeue();
                 foreach(var dir in dirArr)
                 {
                     int x = p.Item1 + dir.Item1, y = p.Item2 + dir.Item2;
-                    if (GetPixel(x, y, RgbValues, bmpData) == prevColor)
-                    {
-                        PutPixel(x, y, RgbValues, bmpData);
-                        q.Enqueue((x, y));
-                    }
+                        if (IsInBounds((x, y), bmpData.Width, bmpData.Height) && GetPixel(x, y, RgbValues, bmpData) == prevColor)
+                        {
+                            PutPixel(x, y, RgbValues, bmpData);
+                            q.Enqueue((x, y));
+                        }
+
+                    
                 }
             }
         }
