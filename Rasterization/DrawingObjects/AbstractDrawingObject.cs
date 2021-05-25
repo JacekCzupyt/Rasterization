@@ -56,6 +56,17 @@ namespace Rasterization.DrawingObjects
             }
         }
 
+        protected Color GetPixel(int x, int y, byte[] RgbValues, BitmapData bmpData)
+        {
+            if (IsInBounds((x, y), bmpData.Width, bmpData.Height))
+            {
+                long i = Flatten((x, y), bmpData.Width) * bmpData.Stride / bmpData.Width;
+                return Color.FromArgb(RgbValues[i + 2], RgbValues[i + 1], RgbValues[i]);
+            }
+            else
+                throw new InvalidOperationException();
+        }
+
         protected void modPutPixel(int _x, int _y, int x0, int y0, int c0, byte[] RgbValues, BitmapData bmpData, double mod = 1)
         {
             if (c0 % 2 >= 1)
